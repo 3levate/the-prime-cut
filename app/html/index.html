@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Prime Cut</title>
+
+    <link rel="stylesheet" href="/css/steaks.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+
+    <link rel="icon" type="image/x-icon" href="/assets/meat.ico" />
+    <link rel="stylesheet" href="https://use.typekit.net/nha6nrw.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Newa&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+      @font-face {
+        font-family: "proxima-nova";
+        src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+Newa&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="unsupported-screen-size">
+      Error 505: Sorry our steaks are too thick to display on your screen.
+    </h1>
+    <div id="container">
+      <button id="borders" onclick="document.body.classList.toggle('show-borders');">
+        Borders
+      </button>
+
+      <header id="nav">
+        <a href="./index.html">
+          <img src="/assets/theprimecut_white_cropped.png" id="logo" alt="The Prime Cut" />
+        </a>
+        <ul id="nav-list">
+          <li onclick="">
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+              <path
+                d="M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454ZM260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z" />
+            </svg>
+            Menus
+          </li>
+          <li onclick="">
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+              <path
+                d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
+            </svg>
+            Locations
+          </li>
+          <li onclick="window.location.href = '/html/reserve-table.html'">
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+              <path
+                d="M173-600h614l-34-120H208l-35 120Zm307-60Zm192 140H289l-11 80h404l-10-80ZM160-160l49-360h-89q-20 0-31.5-16T82-571l57-200q4-13 14-21t24-8h606q14 0 24 8t14 21l57 200q5 19-6.5 35T840-520h-88l48 360h-80l-27-200H267l-27 200h-80Z" />
+            </svg>
+            Reserve A Table
+          </li>
+          <li onclick="">
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+              <path
+                d="M0-240v-63q0-43 44-70t116-27q13 0 25 .5t23 2.5q-14 21-21 44t-7 48v65H0Zm240 0v-65q0-32 17.5-58.5T307-410q32-20 76.5-30t96.5-10q53 0 97.5 10t76.5 30q32 20 49 46.5t17 58.5v65H240Zm540 0v-65q0-26-6.5-49T754-397q11-2 22.5-2.5t23.5-.5q72 0 116 26.5t44 70.5v63H780Zm-455-80h311q-10-20-55.5-35T480-370q-55 0-100.5 15T325-320ZM160-440q-33 0-56.5-23.5T80-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T160-440Zm640 0q-33 0-56.5-23.5T720-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T800-440Zm-320-40q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T600-600q0 50-34.5 85T480-480Zm0-80q17 0 28.5-11.5T520-600q0-17-11.5-28.5T480-640q-17 0-28.5 11.5T440-600q0 17 11.5 28.5T480-560Zm1 240Zm-1-280Z" />
+            </svg>
+            Our Team
+          </li>
+          <li onclick="">
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+              <path
+                d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm0-80h640v-440H160v440Zm240-520h160v-80H400v80ZM160-200v-440 440Z" />
+            </svg>
+            Careers
+          </li>
+        </ul>
+        <div id="nav-additional-info">
+          <h5>HOURS</h5>
+          <hr />
+          <p>Monday to Sunday: <br />3:00pm to 10:00pm</p>
+          <h5>CONTACT</h5>
+          <hr />
+          <p>604-805-4029 <br />info@theprimecut.com</p>
+        </div>
+      </header>
+      <div id="title">
+        <h1>The Prime Cut</h1>
+        <div id="p-wrapper">
+          <p>
+            Established in 1930, The Prime Cut stands as a testament to nearly one hundred years of
+            refined taste, unwavering craftsmanship, and a passion for exceptional steak.
+          </p>
+        </div>
+      </div>
+      <div id="newsletter">
+        <h2>Let's keep in touch</h2>
+        <p>Subscribe to our newsletter for discounts, special offers, and more.</p>
+        <div id="newsletter-inputs">
+          <input type="email" placeholder="Enter your email address" />
+          <button onclick="">Subscribe</button>
+        </div>
+      </div>
+      <div class="steaks">
+        <div id="steaks-banner">
+          <h1>Signature steaks, timeless quality.</h1>
+          <p>
+            Crafted from premium, 100% grass-fed beef, our steaks are hand-selected and aged to
+            perfection. Experience the art of timeless flavor in every bite.
+          </p>
+        </div>
+        <ul class="steaks-gallery">
+          <li onclick="">
+            <div class="steak-background">
+              <div class="steak-desc">
+                <h2>The Strip <small>&trade;</small></h2>
+                <span>
+                  An 18 oz, grass-fed New York Striploin, pan-seared and butter-basted to a perfect
+                  medium rare.
+                </span>
+                <small>105$ | 900cal</small>
+              </div>
+            </div>
+          </li>
+          <li onclick="">
+            <div class="steak-background">
+              <div class="steak-desc">
+                <h2>The Prime Rib <small>&trade;</small></h2>
+                <span>
+                  A 16 oz, slow-roasted Prime Rib, seasoned with a house-made herb crust and served
+                  au jus for a tender, mouthwatering bite.
+                </span>
+                <small>97$ | 850cal</small>
+              </div>
+            </div>
+          </li>
+          <li onclick="">
+            <div class="steak-background">
+              <div class="steak-desc">
+                <h2>The Ribeye <small>&trade;</small></h2>
+                <span
+                  >A 14 oz, hand-cut Ribeye, perfectly char-grilled and finished with a drizzle of
+                  melted garlic-herb butter for a bold, juicy flavor.
+                </span>
+                <small>120$ | 1100cal</small>
+              </div>
+            </div>
+          </li>
+          <li onclick="">
+            <div class="steak-background">
+              <div class="steak-desc">
+                <h2>The Tomahawk <small>&trade;</small></h2>
+                <span>
+                  A 32 oz, grass-fed Tomahawk Steak, expertly flame-grilled and finished with a
+                  rosemary-garlic butter for a rich, smoky flavor.
+                </span>
+                <small>150$ | 1300cal</small>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <footer>
+        <div class="footer-row top">
+          <ul id="footer-icons">
+            <li>
+              <svg width="10" height="16" viewBox="0 0 8 16">
+                <path
+                  d="M1.614 3.1v2.2H0v2.695h1.614V16H4.93V7.996h2.224s.208-1.292.31-2.704H4.942V3.45c0-.276.36-.645.72-.645h1.805V0H5.01C1.532 0 1.614 2.696 1.614 3.1"
+                  fill="#FFF"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 16 13">
+                <path
+                  d="M14.368 3.235v.43C14.368 8 11.07 13 5.038 13 3.19 13 1.446 12.594 0 11.664c.258.04.516.055.782.055 1.53 0 2.96-.666 4.07-1.557-1.422-.015-2.65-.984-3.055-2.28.203.038.406.062.61.062.297 0 .593-.04.875-.118A3.28 3.28 0 0 1 .65 4.61v-.04c.444.243.944.39 1.483.407a3.268 3.268 0 0 1-1.468-2.72c0-.608.17-1.108.445-1.593 1.633 1.985 4.04 3.22 6.757 3.368a3.47 3.47 0 0 1-.07-.758A3.268 3.268 0 0 1 11.07 0c.946 0 1.798.406 2.415 1.032a6.605 6.605 0 0 0 2.07-.797 3.256 3.256 0 0 1-1.445 1.82A6.385 6.385 0 0 0 16 1.53c-.445.673-1 1.244-1.632 1.705"
+                  fill="#FFF"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 16 16">
+                <path
+                  d="M8 10.667a2.667 2.667 0 1 1 0-5.334 2.667 2.667 0 0 1 0 5.334m0-6.775a4.108 4.108 0 1 0 0 8.216 4.108 4.108 0 0 0 0-8.216zm5.23-.162a.96.96 0 1 1-1.92 0 .96.96 0 0 1 1.92 0zM8 1.44c2.136 0 2.39.009 3.233.047.78.036 1.203.166 1.485.276.374.145.64.318.92.598.28.28.453.546.598.92.11.282.24.705.276 1.485.038.844.047 1.097.047 3.233s-.009 2.39-.047 3.233c-.036.78-.166 1.203-.276 1.485-.145.374-.318.64-.598.92-.28.28-.546.453-.92.598-.282.11-.705.24-1.485.276-.844.038-1.097.047-3.233.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.479 2.479 0 0 1-.92-.598 2.479 2.479 0 0 1-.598-.92c-.11-.282-.24-.705-.276-1.485-.038-.844-.047-1.097-.047-3.233s.009-2.39.047-3.233c.036-.78.166-1.203.276-1.485.145-.374.318-.64.598-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276C5.611 1.449 5.864 1.44 8 1.44M8 0C5.827 0 5.555.01 4.702.048 3.85.087 3.269.222 2.76.42a3.921 3.921 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.269.087 3.85.048 4.702.01 5.555 0 5.827 0 8s.01 2.445.048 3.298c.039.852.174 1.433.372 1.942.204.526.478.973.923 1.417a3.9 3.9 0 0 0 1.417.923c.509.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.445-.01 3.298-.048c.852-.039 1.433-.174 1.942-.372a3.921 3.921 0 0 0 1.417-.923 3.9 3.9 0 0 0 .923-1.417c.198-.509.333-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.298c-.039-.852-.174-1.433-.372-1.942a3.922 3.922 0 0 0-.923-1.417A3.921 3.921 0 0 0 13.24.42c-.509-.198-1.09-.333-1.942-.372C10.445.01 10.173 0 8 0"
+                  fill="#FFF"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-row bottom">
+          <ul id="footer-links">
+            <li onclick="">Privacy Policy</li>
+            <li onclick="">Terms & Conditions</li>
+            <li onclick="">Contact</li>
+            <li onclick="">Accessibility</li>
+          </ul>
+          <p>&copy; 2025 The Prime Cut. All Rights Reserved.</p>
+        </div>
+      </footer>
+    </div>
+    <script src="/js/handleMediaQueries.js"></script>
+    <script src="/js/stickyNav.js"></script>
+    <script src="/js/client.js"></script>
+  </body>
+</html>

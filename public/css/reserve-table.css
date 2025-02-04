@@ -1,0 +1,318 @@
+#borders {
+  position: absolute;
+  right: 0;
+  top: 0;
+  /* visibility: hidden; */
+  display: inline-block;
+  background-color: white;
+  font-family: "proxima-nova", sans-serif;
+  z-index: 9999;
+}
+.show-borders * {
+  border: 1px solid red !important;
+}
+@keyframes scroll-for-more {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  20% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  80% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+body {
+  background-color: #171616;
+  margin: 0;
+
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+    z-index: 9999;
+  }
+  #overlay#active {
+    opacity: 1;
+    visibility: visible;
+  }
+  #confirm-reservation {
+    position: fixed;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    transition: left 0.3s;
+    z-index: 9999;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  #confirm-reservation#active {
+    left: 0;
+  }
+
+  #banner {
+    /* background-color: #e6e6e6d8; */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url("/assets/restaurant interior2.jpg");
+    background-size: cover;
+    background-position: center;
+    height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 4rem;
+      color: white;
+      font-family: "Playfair Display", serif;
+      font-weight: normal;
+      text-transform: uppercase;
+      /* color: #969696; */
+    }
+    #p-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      p {
+        width: 30%;
+        line-height: 1.5;
+        font-family: "proxima-nova", sans-serif;
+        color: #b1b1b1;
+        margin: 15px 0 0 0;
+        padding: 0;
+        font-size: 0.9rem;
+      }
+    }
+    .scroll-down {
+      position: absolute;
+      left: 50%;
+      top: 75%;
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        animation: 3s scroll-for-more linear infinite;
+        color: white;
+        font-variation-settings: "FILL" 0, "wght" 100, "GRAD" 0, "opsz" 48;
+
+        .material-symbols-outlined {
+          font-size: 3rem;
+        }
+      }
+    }
+  }
+
+  #reserve-a-table-container {
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+
+    #reserve-a-table-side-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      padding-top: 50px;
+      background-color: black;
+      box-shadow: 3px 0px 7px 1px rgba(0, 0, 0, 0.48);
+      width: 30%;
+
+      h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: white;
+        /* font-family: "proxima-nova", sans-serif; */
+        font-family: "Playfair Display", serif;
+        padding-bottom: 25px;
+        /* font-weight: normal; */
+        text-transform: uppercase;
+      }
+      .timeslots {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        gap: 5px;
+        padding: 50px 20px 0 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        font-family: "Playfair Display", serif;
+
+        .timeslot {
+          padding: 0.5rem 1rem;
+          border-radius: 3px;
+          cursor: pointer;
+          user-select: none;
+          background-color: #eee;
+          transition: background-color 0.2s;
+        }
+        .open {
+          background-color: #c8f7c5;
+        }
+        .reserved {
+          background-color: #f7c8c8;
+          text-decoration: line-through;
+        }
+      }
+    }
+
+    #restaurant-layout {
+      padding: 50px;
+      margin: 50px;
+      border: 10px solid black;
+      width: 65%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 0.1fr 1fr 1fr;
+      grid-template-areas:
+        "bigTable1 . bigTable2 smallTable3 . . ."
+        ". . smallTable4 . . . ."
+        "bigTable5 . smallTable6 . smallTable7 smallTable8 smallTable9"
+        "bigTable10 bigTable11 smallTable12 . bigTableGroup bigTableGroup bigTableGroup";
+      justify-items: center;
+      align-items: center;
+      .big.table[data-table-id="1"] {
+        grid-area: bigTable1;
+        transform: rotate(90deg);
+        padding: 0;
+      }
+      .big.table[data-table-id="2"] {
+        grid-area: bigTable2;
+        padding: 0;
+      }
+      .small.table[data-table-id="3"] {
+        grid-area: smallTable3;
+        transform: rotate(90deg);
+        padding: 0;
+      }
+      .small.table[data-table-id="4"] {
+        grid-area: smallTable4;
+        padding: 0;
+      }
+      .big.table[data-table-id="5"] {
+        grid-area: bigTable5;
+        transform: rotate(90deg);
+        padding: 0;
+      }
+      .small.table[data-table-id="6"] {
+        grid-area: smallTable6;
+        padding: 0;
+      }
+      .small.table[data-table-id="7"] {
+        grid-area: smallTable7;
+        transform: rotate(90deg);
+        padding: 0;
+      }
+      .small.table[data-table-id="8"] {
+        grid-area: smallTable8;
+        transform: rotate(90deg);
+        padding: 0;
+      }
+      .small.table[data-table-id="9"] {
+        grid-area: smallTable9;
+        transform: rotate(90deg);
+        padding: 0;
+      }
+      .big.table[data-table-id="10"] {
+        grid-area: bigTable10;
+        padding: 0;
+      }
+      .big.table[data-table-id="11"] {
+        grid-area: bigTable11;
+        padding: 0;
+      }
+      .small.table[data-table-id="12"] {
+        grid-area: smallTable12;
+        transform: rotate(90deg);
+        padding: 0;
+      }
+      #big-table-wrapper {
+        grid-area: bigTableGroup;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 80%;
+
+        .big.table[data-table-id="13"] {
+          padding-right: 20px;
+        }
+        .big.table[data-table-id="14"] {
+          padding-left: 20px;
+        }
+      }
+      /* .table-chairs-group {
+        fill: none;
+        stroke: #29a429;
+        stroke: #b2b2b2;
+        padding: 20px;
+        transition: stroke 0.3s ease-in-out;
+        stroke-width: 3;
+
+        .table {
+          rx: 2;
+          ry: 2;
+          width: 108;
+          height: 150;
+          stroke-width: 1.5;
+        }
+        .chair {
+          rx: 1;
+          ry: 2;
+          height: 54;
+          width: 19;
+          stroke-width: 1;
+        }
+        .chair-backing {
+          rx: 3;
+          ry: 3;
+        }
+      }
+      .table-chairs-group:hover {
+        stroke: #29a429;
+      }
+      .fully-booked {
+        stroke: #b83100;
+      }
+      .some-availability {
+        stroke: #cab25b;
+      } */
+    }
+  }
+}

@@ -1,0 +1,103 @@
+#steaks-banner {
+  /* background-color: #e6e6e6d8; */
+  background-color: #ffffff;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  grid-area: steaks-banner;
+
+  h1 {
+    margin: 0;
+    padding: 0 0 10px 20px;
+    font-size: 140%;
+    font-weight: 100;
+    color: #201e1c;
+    text-transform: capitalize;
+    /* color: #969696; */
+  }
+  p {
+    margin: 0;
+    padding: 0 5% 0 5%;
+    font-family: "proxima-nova", sans-serif;
+    color: #969696;
+    font-size: 80%;
+  }
+}
+.steaks {
+  grid-area: steaks;
+}
+.steaks-gallery {
+  grid-area: steaks-gallery;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 79%;
+  gap: 5px;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  flex-direction: row;
+
+  > li {
+    transition: 0.4s ease-in-out;
+    position: relative;
+    overflow: hidden;
+
+    &:nth-of-type(1) {
+      background: url("/assets/meat/nystrip\ 2.jpg") no-repeat 50% / cover;
+    }
+    &:nth-of-type(2) {
+      background: url("/assets/meat/prime\ rib.jpg") no-repeat 50% / cover;
+    }
+    &:nth-of-type(3) {
+      background: url("/assets/meat/ribeye.jpg") no-repeat 50% / cover;
+    }
+    &:nth-of-type(4) {
+      background: url("/assets/meat/tomahawk.jpg") no-repeat 50% / cover;
+    }
+  }
+}
+.steaks-gallery > li .steak-background {
+  color: #fff;
+  display: flex;
+  align-items: left;
+  opacity: 0;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(0deg, rgba(4, 0, 0, 0.676) 0%, rgba(255, 255, 255, 0) 100%);
+  transform: translatey(100%);
+  transition: opacity 0.3s ease-in-out, transform 0.3s 0.3s;
+  visibility: hidden;
+
+  .steak-desc {
+    padding: 0 7% 20% 7%;
+    h2 {
+      font-family: "Playfair Display", serif;
+      text-transform: uppercase;
+      font-size: 25px;
+      margin: 0;
+    }
+    span {
+      display: block;
+      font-size: 14px;
+      font-family: "proxima-nova", sans-serif;
+      padding: 10px 0 25px 0;
+    }
+    small {
+      font-family: "Playfair Display", serif;
+    }
+  }
+}
+
+/* .steaks > li:hover {
+  transform: translatey(-30px);
+} */
+.steaks-gallery > li:hover .steak-background {
+  opacity: 1;
+  transform: translatey(0%);
+  visibility: visible;
+}

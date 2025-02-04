@@ -1,0 +1,117 @@
+:root {
+  --datepicker-primary: #ff4500;
+  --datepicker-primary-accent: #ff4500;
+  --datepicker-bg-primary: #d6dae0;
+  --datepicker-bg-secondary: #eaebec;
+  --datepicker-bg-tertiary: #fdfdfd;
+  --datepicker-text-primary: black;
+  --datepicker-text-secondary: #999fa6;
+}
+
+.datepicker {
+  font-family: "Inter", sans-serif;
+  /* font-family: "Playfair Display", serif; */
+  line-height: 1.5;
+  background-color: var(--datepicker-bg-tertiary);
+  color: var(--datepicker-text-primary);
+  border-radius: 3px;
+  max-width: 350px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2) 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  box-sizing: border-box;
+
+  button {
+    font: inherit;
+    cursor: pointer;
+  }
+  button:focus {
+    outline: 0;
+  }
+
+  .datepicker-top {
+    margin-bottom: 1rem;
+
+    .datepicker-quick-pick-group {
+      display: flex;
+      margin: 0 0 1rem 0;
+      padding-left: 5px;
+      font-size: 0.9rem;
+
+      .quick-date-pick {
+        margin: 0.5rem 0.5rem 0 0;
+        border: 0;
+        background-color: var(--datepicker-bg-secondary);
+        border-radius: 3px;
+        padding: 0.5em 0.75em;
+        font-weight: bold;
+        /* text-transform: uppercase; */
+      }
+    }
+    .month-selector {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .arrow-button {
+        font-family: "Inter", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        background-color: white;
+        border-radius: 4px;
+        width: 2.5rem;
+        height: 2.5rem;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25), 0 0px 10px 0 rgba(0, 0, 0, 0.15);
+      }
+      .month-name {
+        font-weight: 600;
+        font-family: "Playfair Display", serif;
+        font-size: 1.15rem;
+      }
+    }
+  }
+  .datepicker-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-row-gap: 1rem;
+
+    .day-name {
+      color: var(--datepicker-text-secondary);
+      font-size: 0.875em;
+      font-weight: 600;
+      font-family: "Playfair Display", serif;
+      justify-self: center;
+      display: flex;
+    }
+    .day-number {
+      font-family: "Inter", sans-serif;
+      border: 0;
+      padding: 0;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 3px;
+      font-weight: 600;
+      border: 2px solid transparent;
+      background-color: transparent;
+    }
+    .day-number:focus {
+      color: var(--datepicker-primary);
+      border: 2px solid var(--datepicker-primary-accent);
+    }
+    .faded {
+      color: var(--datepicker-text-secondary);
+    }
+    .current-day {
+      color: white;
+      border-color: var(--datepicker-primary);
+      border: 2px solid var(--datepicker-primary);
+    }
+    .current-day:focus {
+      background-color: var(--datepicker-primary-accent);
+    }
+  }
+}

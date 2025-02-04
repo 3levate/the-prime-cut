@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<svg viewBox="0 0 56 25" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <g class="layer" display="inline">
+  <title>Layer 1</title>
+  <g id="svg_51" transform="translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0.25 0) translate(-0.25 0) translate(0.25 0) matrix(1 0 0 1 1.75 2.25)">
+   <rect fill="#f2f2f2" fill-opacity="0" height="60" id="svg_1" rx="2" ry="2" stroke="#d1d1d1" stroke-width="1.5" transform="matrix(0.288738 0 0 0.352989 -53.3581 -117.306)" width="80" x="234.93" y="334.45"/>
+   <rect fill="#f2f2f2" fill-opacity="0" height="30" id="svg_12" rx="2" ry="2" stroke="#d1d1d1" transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)" width="25" x="18.74" y="41.93"/>
+   <rect fill="#f2f2f2" fill-opacity="0" height="31" id="svg_11" rx="3" ry="3" stroke="#d1d1d1" transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)" width="7" x="11.74" y="41.43"/>
+   <rect fill="#f2f2f2" fill-opacity="0" height="30" id="svg_20" rx="2" ry="2" stroke="#d1d1d1" transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)" width="25" x="94.38" y="41.93"/>
+   <rect fill="#f2f2f2" fill-opacity="0" height="31" id="svg_19" rx="3" ry="3" stroke="#d1d1d1" transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)" width="7" x="119.38" y="41.43"/>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,499 @@
+#unsupported-screen-size {
+  display: none;
+  position: absolute;
+  top: 0;
+  color: white;
+  writing-mode: vertical-rl;
+  font-family: "proxima-nova", sans-serif;
+  font-size: 190%;
+  text-align: center;
+  padding: 50px;
+}
+#borders {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: inline-block;
+  background-color: white;
+  font-family: "Playfair Display", serif;
+}
+.show-borders * {
+  border: 1px solid white !important;
+}
+body {
+  background-color: #171616;
+  /* background-color: #f0f0f0; */
+  font-family: "Playfair Display", serif;
+  margin: 0;
+}
+footer {
+  grid-area: footer;
+  display: flex;
+  flex-direction: column;
+  color: #4f4940;
+  background-color: #e6e6e603;
+  justify-content: center;
+
+  .footer-row.top {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    #footer-icons {
+      list-style-type: none;
+      display: flex;
+      gap: 15px;
+      padding: 0;
+      margin: 0;
+
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
+  .footer-row.bottom {
+    display: flex;
+    width: 100%;
+
+    #footer-links {
+      font-family: "proxima-nova", sans-serif;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      font-size: 13px;
+      display: flex;
+      font-weight: 600;
+
+      li {
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+      li:hover {
+        color: white;
+      }
+    }
+    p {
+      font-family: "proxima-nova", sans-serif;
+      font-size: 13px;
+      margin: 0;
+      padding: 0;
+      font-weight: 100;
+    }
+  }
+}
+
+#container {
+  width: 100%;
+  height: auto;
+  display: grid;
+  /* gap: 20px; */
+}
+#nav {
+  grid-area: nav;
+}
+#title {
+  grid-area: title;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/assets/steakhouse.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
+  h1 {
+    font-size: min(10vw, 500%);
+    color: white;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  #p-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 37vw;
+    padding-top: 10px;
+
+    p {
+      font-family: "proxima-nova", sans-serif;
+      color: rgb(211, 211, 211);
+      padding: 0;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+}
+header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px 15px 0 15px;
+}
+#nav-list {
+  font-family: "proxima-nova", sans-serif;
+  margin: 0;
+  list-style-type: none;
+  color: white;
+  font-size: 14px;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  justify-content: center;
+  /* for max width layout  */
+  align-items: start;
+  padding-top: 40px;
+  padding-left: 0px;
+  background-color: black;
+
+  li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    top: -10px;
+    /* color: #969696; */
+    color: white;
+    transition: color 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  li:hover {
+    color: #ff4500;
+
+    svg {
+      transition: fill 0.3s ease-in-out;
+      fill: #ff4500;
+    }
+  }
+  li::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ff4500;
+    transform-origin: bottom left;
+    transition: transform 0.3s ease;
+  }
+  li:hover::after {
+    transform: scaleX(0.99);
+    transform-origin: bottom left;
+  }
+}
+
+#logo {
+  height: auto;
+  width: auto;
+  max-width: 150px;
+}
+#newsletter {
+  grid-area: newsletter;
+  background-color: #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    font-family: "proxima-nova", sans-serif;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  p {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    font-size: 14px;
+    padding: 5px 30px 20px 30px;
+    text-align: center;
+  }
+  #newsletter-inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    input {
+      padding: 10px 15px;
+      border: 1px solid #cad3db;
+      width: 50vw;
+      font-size: 18px;
+      color: #0f121f;
+      font-size: 14px;
+      font-family: "proxima-nova", sans-serif;
+    }
+    button {
+      background-color: white;
+      color: black;
+      border: none;
+      transition: 0.5s ease;
+      border: 3px solid black;
+      font-family: "proxima-nova", sans-serif;
+      width: 100px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+}
+
+@media (min-width: 1281px) and (max-width: 2400px) {
+  #container {
+    grid-template-columns: 1fr 10fr;
+    grid-template-rows: 100vh 300px 100vh 300px;
+    grid-template-areas:
+      "nav title"
+      "nav newsletter"
+      "nav steaks"
+      "footer footer";
+  }
+  #nav-list li svg {
+    padding: 0 10px 0 0;
+  }
+  header {
+    box-shadow: 3px 0px 3px 1px rgba(0, 0, 0, 0.218);
+    background-color: black;
+    color: white;
+    font-family: "proxima-nova", sans-serif;
+    align-items: normal;
+    padding-top: 0;
+
+    #nav-additional-info {
+      padding: 30px 0 0 0;
+
+      h5 {
+        margin: 0;
+        font-size: 14px;
+      }
+      p {
+        margin: 0;
+        font-size: 12px;
+        padding: 0 0 20px 0;
+      }
+      hr {
+        margin: 4px 0 6px 0;
+      }
+    }
+  }
+  .steaks {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+  #steaks-banner {
+    width: 50%;
+    height: 100%;
+    text-align: left;
+
+    h1 {
+      font-size: 200%;
+      padding-left: 60px;
+    }
+    p {
+      padding-left: 60px;
+      font-size: 15px;
+    }
+  }
+  .steaks-gallery {
+    width: 50%;
+    height: 100%;
+    justify-content: center;
+    /* overflow: hidden; */
+
+    li {
+      flex: 0 2 18%;
+    }
+    li:hover {
+      flex: 0 0 min(500px, 60%);
+    }
+  }
+  #title {
+    height: 100%;
+
+    p {
+      font-size: 15px;
+    }
+  }
+  footer {
+    padding: 0 150px 0 150px;
+    gap: 50px;
+
+    .footer-row.bottom {
+      flex-direction: row-reverse;
+      justify-content: space-between;
+
+      #footer-links {
+        flex-direction: row;
+        gap: 25px;
+      }
+    }
+  }
+}
+@media (min-width: 701px) and (max-width: 1280px) {
+  #container {
+    grid-template-columns: 100%;
+    grid-template-rows: auto 100vh 25vh 25vh 100vh 300px;
+    grid-template-areas:
+      "nav"
+      "title"
+      "newsletter"
+      "steaks-banner"
+      "steaks-gallery"
+      "footer";
+    gap: 0px;
+  }
+  #title #p-wrapper {
+    width: 75vw;
+  }
+  #nav-list {
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    background-color: black;
+    box-shadow: 0 1.5px 3px 1px rgba(0, 0, 0, 0.218);
+    font-size: 15px;
+    padding-top: 20px;
+    gap: 20px;
+    /* padding: 20px 50px 0 30px; */
+
+    li {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  header {
+    padding: 30px 0 0 0;
+    justify-content: center;
+  }
+  #logo {
+    max-width: 250px;
+    padding-bottom: 30px;
+  }
+  .steaks-gallery {
+    height: 100%;
+
+    li {
+      flex: 0 0 15%;
+    }
+    li:hover {
+      flex: 0 0 min(400px, 50%);
+    }
+  }
+  #steaks-banner {
+    height: 100%;
+
+    h1 {
+      font-size: 180%;
+    }
+  }
+  footer {
+    gap: 25px;
+
+    .footer-row.bottom {
+      gap: 25px;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      #footer-links {
+        gap: 5px;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+  }
+}
+@media (min-width: 251px) and (max-width: 700px) {
+  #container {
+    grid-template-columns: 100%;
+    grid-template-rows: min(320px, max(70vw, 300px)) 100vh 25vh 25vh 100vh 300px;
+    grid-template-areas:
+      "nav"
+      "title"
+      "newsletter"
+      "steaks-banner"
+      "steaks-gallery"
+      "footer";
+    gap: 0px;
+  }
+  header {
+    padding: 0;
+    justify-content: center;
+
+    #logo {
+      padding: 20px 0 20px 0;
+      max-width: 180px;
+    }
+    #nav-list {
+      flex-direction: row;
+      text-align: center;
+      align-items: center;
+      white-space: nowrap;
+      width: 100%;
+      height: 100%;
+      /* background-color: #e6e6e603; */
+      font-size: 3vw;
+      padding: 20px 0 0 0;
+      gap: 3%;
+      box-shadow: 0 1.5px 3px 1px rgba(0, 0, 0, 0.218);
+
+      li {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          display: none;
+        }
+      }
+    }
+  }
+  #title p {
+    font-size: max(3vw, 12px);
+  }
+
+  .steaks-gallery {
+    height: 100%;
+
+    li {
+      flex: 0 2 15%;
+    }
+    li:hover {
+      flex: 0 0 250px;
+    }
+  }
+  #steaks-banner {
+    height: 100%;
+  }
+  footer {
+    gap: 25px;
+
+    .footer-row.bottom {
+      gap: 25px;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      #footer-links {
+        gap: 5px;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+  }
+}
+@media (max-width: 250px) {
+  #container {
+    display: hidden;
+    visibility: hidden;
+    overflow: hidden;
+  }
+  #unsupported-screen-size {
+    display: unset;
+  }
+}

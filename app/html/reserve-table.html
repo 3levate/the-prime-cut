@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reserve A Table</title>
+
+    <link rel="icon" type="image/x-icon" href="/assets/meat.ico" />
+    <link rel="stylesheet" href="/css/reserve-table.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/datepicker.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=chevron_left,chevron_right,keyboard_arrow_down"
+      rel="stylesheet" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Newa&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+Newa&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+    </style>
+
+    <script src="/js/load-component.js"></script>
+  </head>
+  <body>
+    <button id="borders" onclick="document.body.classList.toggle('show-borders');">Borders</button>
+    <header id="nav"></header>
+    <script>
+      console.log("attempting to load nav");
+      loadComponent("nav", "/html/nav.html");
+    </script>
+
+    <div id="overlay"></div>
+    <div id="confirm-reservation"></div>
+
+    <div id="banner">
+      <h1>Your table awaits</h1>
+      <div id="p-wrapper">
+        <p>
+          Our exclusive Reserve-A-Table&trade; system ensures you secure the ideal spot for an
+          unforgettable evening.
+        </p>
+      </div>
+      <div class="scroll-down">
+        <!-- prettier-ignore -->
+        <button onclick="window.location.href = '#reserve-a-table-container'">
+          <span class="material-symbols-outlined">keyboard_arrow_down</span>
+        </button>
+      </div>
+    </div>
+    <div id="reserve-a-table-container">
+      <div id="reserve-a-table-side-panel">
+        <h2>Make a reservation</h2>
+        <div class="datepicker">
+          <div class="datepicker-top">
+            <div class="datepicker-quick-pick-group">
+              <button class="quick-date-pick" onclick="todayFocus()">Today</button>
+              <button class="quick-date-pick" onclick="tomorrowFocus()">Tomorrow</button>
+              <button class="quick-date-pick">This Weekend</button>
+            </div>
+            <div class="month-selector">
+              <button class="arrow-button" onclick="previousMonth()">
+                <i class="material-symbols-outlined">chevron_left</i>
+              </button>
+              <span class="month-name"></span>
+              <button class="arrow-button" onclick="nextMonth()">
+                <i class="material-symbols-outlined">chevron_right</i>
+              </button>
+            </div>
+          </div>
+          <div class="datepicker-calendar">
+            <span class="day-name">Mon</span>
+            <span class="day-name">Tue</span>
+            <span class="day-name">Wed</span>
+            <span class="day-name">Thu</span>
+            <span class="day-name">Fri</span>
+            <span class="day-name">Sat</span>
+            <span class="day-name">Sun</span>
+          </div>
+        </div>
+        <div class="timeslots">
+          <div class="timeslot open" data-hour-id="3">3:00 pm</div>
+          <div class="timeslot open" data-hour-id="4">4:00 pm</div>
+          <div class="timeslot open" data-hour-id="5">5:00 pm</div>
+          <div class="timeslot open" data-hour-id="6">6:00 pm</div>
+          <div class="timeslot open" data-hour-id="7">7:00 pm</div>
+          <div class="timeslot open" data-hour-id="8">8:00 pm</div>
+          <div class="timeslot open" data-hour-id="9">9:00 pm</div>
+        </div>
+      </div>
+
+      <div id="restaurant-layout">
+        <svg class="big table" data-table-id="1" viewBox="0 0 70 60">
+          <g
+            id="svg_21"
+            transform="translate(1 0) translate(0 1) translate(0 -1.03) translate(-2.53 0) translate(2.25 0) translate(-1.5 -0.25) matrix(0.42085 0 0 0.42085 2.77746 1.43587)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="105"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="80"
+              x="42"
+              y="4.54" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_10"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="17"
+              y="21" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_9"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="10"
+              y="20.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="16.54"
+              y="64" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="9.54"
+              y="63.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_18"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="122.46"
+              y="21" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_17"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="147.46"
+              y="20.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="122.46"
+              y="64" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="147.46"
+              y="63.5" />
+          </g>
+        </svg>
+        <svg class="big table" data-table-id="2" viewBox="0 0 70 60">
+          <g
+            id="svg_21"
+            transform="translate(1 0) translate(0 1) translate(0 -1.03) translate(-2.53 0) translate(2.25 0) translate(-1.5 -0.25) matrix(0.42085 0 0 0.42085 2.77746 1.43587)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="105"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="80"
+              x="42"
+              y="4.54" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_10"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="17"
+              y="21" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_9"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="10"
+              y="20.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="16.54"
+              y="64" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="9.54"
+              y="63.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_18"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="122.46"
+              y="21" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_17"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="147.46"
+              y="20.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="122.46"
+              y="64" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="147.46"
+              y="63.5" />
+          </g>
+        </svg>
+        <svg class="small table" data-table-id="3" viewBox="0 0 56 25">
+          <g
+            id="svg_51"
+            transform="translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0.25 0) translate(-0.25 0) translate(0.25 0) matrix(1 0 0 1 1.75 2.25)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="60"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(0.288738 0 0 0.352989 -53.3581 -117.306)"
+              width="80"
+              x="234.93"
+              y="334.45" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="18.74"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="11.74"
+              y="41.43" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="94.38"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="119.38"
+              y="41.43" />
+          </g>
+        </svg>
+        <svg class="small table" data-table-id="4" viewBox="0 0 56 25">
+          <g
+            id="svg_51"
+            transform="translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0.25 0) translate(-0.25 0) translate(0.25 0) matrix(1 0 0 1 1.75 2.25)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="60"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(0.288738 0 0 0.352989 -53.3581 -117.306)"
+              width="80"
+              x="234.93"
+              y="334.45" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="18.74"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="11.74"
+              y="41.43" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="94.38"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="119.38"
+              y="41.43" />
+          </g>
+        </svg>
+        <svg class="big table" data-table-id="5" viewBox="0 0 70 60">
+          <g
+            id="svg_21"
+            transform="translate(1 0) translate(0 1) translate(0 -1.03) translate(-2.53 0) translate(2.25 0) translate(-1.5 -0.25) matrix(0.42085 0 0 0.42085 2.77746 1.43587)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="105"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="80"
+              x="42"
+              y="4.54" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_10"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="17"
+              y="21" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_9"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="10"
+              y="20.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="16.54"
+              y="64" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="9.54"
+              y="63.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_18"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="122.46"
+              y="21" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_17"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="147.46"
+              y="20.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="122.46"
+              y="64" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="147.46"
+              y="63.5" />
+          </g>
+        </svg>
+        <svg class="small table" data-table-id="6" viewBox="0 0 56 25">
+          <g
+            id="svg_51"
+            transform="translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0.25 0) translate(-0.25 0) translate(0.25 0) matrix(1 0 0 1 1.75 2.25)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="60"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(0.288738 0 0 0.352989 -53.3581 -117.306)"
+              width="80"
+              x="234.93"
+              y="334.45" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="18.74"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="11.74"
+              y="41.43" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="94.38"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="119.38"
+              y="41.43" />
+          </g>
+        </svg>
+        <svg class="small table" data-table-id="7" viewBox="0 0 56 25">
+          <g
+            id="svg_51"
+            transform="translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0.25 0) translate(-0.25 0) translate(0.25 0) matrix(1 0 0 1 1.75 2.25)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="60"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(0.288738 0 0 0.352989 -53.3581 -117.306)"
+              width="80"
+              x="234.93"
+              y="334.45" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="18.74"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="11.74"
+              y="41.43" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="94.38"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="119.38"
+              y="41.43" />
+          </g>
+        </svg>
+        <svg class="small table" data-table-id="8" viewBox="0 0 56 25">
+          <g
+            id="svg_51"
+            transform="translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0.25 0) translate(-0.25 0) translate(0.25 0) matrix(1 0 0 1 1.75 2.25)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="60"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(0.288738 0 0 0.352989 -53.3581 -117.306)"
+              width="80"
+              x="234.93"
+              y="334.45" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="18.74"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="11.74"
+              y="41.43" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="94.38"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="119.38"
+              y="41.43" />
+          </g>
+        </svg>
+        <svg class="small table" data-table-id="9" viewBox="0 0 56 25">
+          <g
+            id="svg_51"
+            transform="translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0.25 0) translate(-0.25 0) translate(0.25 0) matrix(1 0 0 1 1.75 2.25)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="60"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(0.288738 0 0 0.352989 -53.3581 -117.306)"
+              width="80"
+              x="234.93"
+              y="334.45" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="18.74"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="11.74"
+              y="41.43" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="94.38"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="119.38"
+              y="41.43" />
+          </g>
+        </svg>
+        <svg class="big table" data-table-id="10" viewBox="0 0 70 60">
+          <g
+            id="svg_21"
+            transform="translate(1 0) translate(0 1) translate(0 -1.03) translate(-2.53 0) translate(2.25 0) translate(-1.5 -0.25) matrix(0.42085 0 0 0.42085 2.77746 1.43587)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="105"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="80"
+              x="42"
+              y="4.54" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_10"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="17"
+              y="21" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_9"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="10"
+              y="20.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="16.54"
+              y="64" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="9.54"
+              y="63.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_18"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="122.46"
+              y="21" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_17"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="147.46"
+              y="20.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="122.46"
+              y="64" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="147.46"
+              y="63.5" />
+          </g>
+        </svg>
+        <svg class="big table" data-table-id="11" viewBox="0 0 70 60">
+          <g
+            id="svg_21"
+            transform="translate(1 0) translate(0 1) translate(0 -1.03) translate(-2.53 0) translate(2.25 0) translate(-1.5 -0.25) matrix(0.42085 0 0 0.42085 2.77746 1.43587)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="105"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="80"
+              x="42"
+              y="4.54" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_10"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="17"
+              y="21" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_9"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="10"
+              y="20.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="16.54"
+              y="64" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="9.54"
+              y="63.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_18"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="122.46"
+              y="21" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_17"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="147.46"
+              y="20.5" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="25"
+              x="122.46"
+              y="64" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+              width="7"
+              x="147.46"
+              y="63.5" />
+          </g>
+        </svg>
+        <svg class="small table" data-table-id="12" viewBox="0 0 56 25">
+          <g
+            id="svg_51"
+            transform="translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0 -0.25) translate(0.25 0) translate(-0.25 0) translate(0.25 0) matrix(1 0 0 1 1.75 2.25)">
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="60"
+              id="svg_1"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              stroke-width="1.5"
+              transform="matrix(0.288738 0 0 0.352989 -53.3581 -117.306)"
+              width="80"
+              x="234.93"
+              y="334.45" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_12"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="18.74"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_11"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="11.74"
+              y="41.43" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="30"
+              id="svg_20"
+              rx="2"
+              ry="2"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="25"
+              x="94.38"
+              y="41.93" />
+            <rect
+              fill="#f2f2f2"
+              fill-opacity="0"
+              height="31"
+              id="svg_19"
+              rx="3"
+              ry="3"
+              stroke="#d1d1d1"
+              transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129) matrix(0.42085 0 0 0.42085 7.37868 2.62935) matrix(1 0 0 1 -6.60658 -35.0563)"
+              width="7"
+              x="119.38"
+              y="41.43" />
+          </g>
+        </svg>
+        <div id="big-table-wrapper">
+          <svg class="big table" data-table-id="13" viewBox="0 0 70 60">
+            <g
+              id="svg_21"
+              transform="translate(1 0) translate(0 1) translate(0 -1.03) translate(-2.53 0) translate(2.25 0) translate(-1.5 -0.25) matrix(0.42085 0 0 0.42085 2.77746 1.43587)">
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="105"
+                id="svg_1"
+                rx="2"
+                ry="2"
+                stroke="#d1d1d1"
+                stroke-width="1.5"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="80"
+                x="42"
+                y="4.54" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="30"
+                id="svg_10"
+                rx="2"
+                ry="2"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="25"
+                x="17"
+                y="21" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="31"
+                id="svg_9"
+                rx="3"
+                ry="3"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="7"
+                x="10"
+                y="20.5" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="30"
+                id="svg_12"
+                rx="2"
+                ry="2"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="25"
+                x="16.54"
+                y="64" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="31"
+                id="svg_11"
+                rx="3"
+                ry="3"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="7"
+                x="9.54"
+                y="63.5" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="30"
+                id="svg_18"
+                rx="2"
+                ry="2"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="25"
+                x="122.46"
+                y="21" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="31"
+                id="svg_17"
+                rx="3"
+                ry="3"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="7"
+                x="147.46"
+                y="20.5" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="30"
+                id="svg_20"
+                rx="2"
+                ry="2"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="25"
+                x="122.46"
+                y="64" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="31"
+                id="svg_19"
+                rx="3"
+                ry="3"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="7"
+                x="147.46"
+                y="63.5" />
+            </g>
+          </svg>
+          <svg class="big table" data-table-id="14" viewBox="0 0 70 60">
+            <g
+              id="svg_21"
+              transform="translate(1 0) translate(0 1) translate(0 -1.03) translate(-2.53 0) translate(2.25 0) translate(-1.5 -0.25) matrix(0.42085 0 0 0.42085 2.77746 1.43587)">
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="105"
+                id="svg_1"
+                rx="2"
+                ry="2"
+                stroke="#d1d1d1"
+                stroke-width="1.5"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="80"
+                x="42"
+                y="4.54" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="30"
+                id="svg_10"
+                rx="2"
+                ry="2"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="25"
+                x="17"
+                y="21" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="31"
+                id="svg_9"
+                rx="3"
+                ry="3"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="7"
+                x="10"
+                y="20.5" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="30"
+                id="svg_12"
+                rx="2"
+                ry="2"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="25"
+                x="16.54"
+                y="64" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="31"
+                id="svg_11"
+                rx="3"
+                ry="3"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="7"
+                x="9.54"
+                y="63.5" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="30"
+                id="svg_18"
+                rx="2"
+                ry="2"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="25"
+                x="122.46"
+                y="21" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="31"
+                id="svg_17"
+                rx="3"
+                ry="3"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="7"
+                x="147.46"
+                y="20.5" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="30"
+                id="svg_20"
+                rx="2"
+                ry="2"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="25"
+                x="122.46"
+                y="64" />
+              <rect
+                fill="#f2f2f2"
+                fill-opacity="0"
+                height="31"
+                id="svg_19"
+                rx="3"
+                ry="3"
+                stroke="#d1d1d1"
+                transform="matrix(1.07899 0 0 1.26479 -10.298 -5.74635) matrix(1 0 0 1 0 1.58129)"
+                width="7"
+                x="147.46"
+                y="63.5" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <script src="/js/client.js"></script>
+    <footer id="footer">
+      <script>
+        console.log("attempting to load footer");
+        loadComponent("footer", "/html/footer.html");
+      </script>
+    </footer>
+  </body>
+</html>
