@@ -55,7 +55,7 @@ body {
     background: rgba(0, 0, 0, 0.5);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.7s ease-in-out, visibility 0.7s ease-in-out;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
     z-index: 9999;
   }
   #overlay.active {
@@ -71,7 +71,7 @@ body {
     transition: left 0.3s;
     z-index: 9999;
     box-sizing: border-box;
-    transition: left 0.7s ease-in-out;
+    transition: left 0.5s ease-in-out;
 
     display: flex;
     flex-direction: column;
@@ -97,8 +97,6 @@ body {
       color: #c40d2e;
     }
     #confirm-reservation-container {
-      /* background-color: black;
-        opacity: 0.8; */
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       display: flex;
@@ -136,6 +134,35 @@ body {
           text-align: left;
         }
       }
+      #reservation-info-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        font-size: 0.95rem;
+        font-family: "proxima-nova", sans-serif;
+        width: 100%;
+        gap: 20px;
+
+        .reservation-info-item {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          gap: 5px;
+
+          .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
+            padding-right: 5px;
+          }
+        }
+      }
       form {
         display: flex;
         flex-direction: column;
@@ -147,7 +174,6 @@ body {
           width: 20rem;
           height: 2.5rem;
           border: none;
-          font-size: 18px;
           color: white;
           font-size: 0.8rem;
           font-family: "proxima-nova", sans-serif;
@@ -185,6 +211,8 @@ body {
             padding: 0;
             margin: 0;
             text-align: center;
+            line-height: 3.1rem;
+            cursor: pointer;
           }
           #confirm:hover {
             border: 1px solid white;
@@ -200,6 +228,8 @@ body {
             height: 3rem;
             color: white;
             transition: border 0.3s ease-in-out;
+            line-height: 2.9rem;
+            cursor: pointer;
           }
           #cancel:hover {
             border: 2px solid #c40d2e;

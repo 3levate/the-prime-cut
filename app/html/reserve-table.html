@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/datepicker.css" />
 
+    <!-- must be loaded alphabetically -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=chevron_left,chevron_right,keyboard_arrow_down"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=chevron_left,chevron_right,event,keyboard_arrow_down,schedule,table_bar"
       rel="stylesheet" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Newa&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
@@ -38,10 +39,34 @@
           <div id="line"></div>
           <h1>Confirm your reservation</h1>
         </div>
-        <form>
-          <input type="text" name="name" id="name" placeholder="Name" class="inputs" />
-          <input type="email" name="email" id="email" placeholder="Email" class="inputs" />
-          <!-- <input type="tel" name="phone-number" id="phone-number" placeholder="Phone Number" /> -->
+        <div id="reservation-info-list">
+          <div id="date" class="reservation-info-item">
+            <span class="material-symbols-outlined">event</span><span class="info"></span>
+          </div>
+          <div id="time" class="reservation-info-item">
+            <span class="material-symbols-outlined">schedule</span><span class="info"></span>
+          </div>
+          <div id="table-number" class="reservation-info-item">
+            <span class="material-symbols-outlined">table_bar</span><span class="info"></span>
+          </div>
+        </div>
+        <form onsubmit="return storeReservation(event)">
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            class="inputs"
+            required
+            autocomplete="off" />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            class="inputs"
+            required
+            autocomplete="off" />
           <fieldset>
             <input type="reset" value="Cancel" id="cancel" />
             <input type="submit" value="Confirm" id="confirm" />

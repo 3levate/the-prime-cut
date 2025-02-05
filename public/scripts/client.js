@@ -70,8 +70,8 @@ function createTimeslot(hour, timeslotsContainer) {
   timeslot.classList.add("timeslot", "hide");
   timeslot.setAttribute("data-hour-id", hour);
   timeslot.textContent = `${hour}:00 PM`;
-  timeslot.onclick = () => {
-    openConfirmationWindow();
+  timeslot.onclick = (event) => {
+    openConfirmationWindow(event.target.dataset.hourId);
   };
   timeslotsContainer.appendChild(timeslot);
 
@@ -95,11 +95,19 @@ function deleteAllTimeslots() {
   });
 }
 
-function openConfirmationWindow() {
+function openConfirmationWindow(hour) {
   const overlay = document.getElementById("overlay");
   const confirmReservation = document.getElementById("confirm-reservation");
   overlay.classList.add("active");
   confirmReservation.classList.add("active");
+
+  document.querySelector("#date .info").textContent = CURRENT_MONTH.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+  document.querySelector("#time .info").textContent = `${hour}:00 PM`;
+  document.querySelector("#table-number .info").textContent = `No. 23`;
 }
 
 function closeConfirmationWindow() {
@@ -205,6 +213,16 @@ function tomorrowFocus() {
     .querySelector(`.day-number[data-day-number="${tomorrow.getDate()}"]`)
     .classList.add("clicked");
 }
+
+function storeReservation(event) {
+  const { name, email } = Object.fromEntries(new FormData(event.target).entries());
+  console.log(name, email);
+
+  showSuccessScreen(name, email);
+  return false;
+}
+
+function showSuccessScreen() {}
 
 setDatePickerMonth();
 highlightReservedTables(todayDateFormatted);
