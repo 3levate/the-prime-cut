@@ -144,51 +144,70 @@ body {
     display: flex;
     flex-direction: row;
 
-    #reserve-a-table-side-panel {
-      display: flex;
-      flex-direction: column;
-      justify-content: start;
-      align-items: center;
-      padding-top: 50px;
+    #reserve-a-table-bg {
       background-color: black;
       box-shadow: 3px 0px 7px 1px rgba(0, 0, 0, 0.48);
-      width: 30%;
+      width: 35%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
       h2 {
+        text-align: center;
         margin: 0;
-        font-size: 1.5rem;
+        font-size: 2rem;
         color: white;
-        /* font-family: "proxima-nova", sans-serif; */
         font-family: "Playfair Display", serif;
-        padding-bottom: 25px;
-        /* font-weight: normal; */
         text-transform: uppercase;
+        padding: 40px 0 40px 0;
       }
-      .timeslots {
+
+      #reserve-a-table-side-panel {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        width: 375px;
 
-        gap: 5px;
-        padding: 50px 20px 0 20px;
-        font-size: 0.85rem;
-        font-weight: 500;
-        font-family: "Playfair Display", serif;
+        h3 {
+          text-align: left;
+          margin: 0;
+          font-size: 1rem;
+          color: white;
+          font-family: "proxima-nova", sans-serif;
+          padding: 40px 0 0 0;
+          text-transform: uppercase;
+        }
+        #timeslots-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
 
-        .timeslot {
-          padding: 0.5rem 1rem;
-          border-radius: 3px;
-          cursor: pointer;
-          user-select: none;
-          background-color: #eee;
-          transition: background-color 0.2s;
-        }
-        .open {
-          background-color: #c8f7c5;
-        }
-        .reserved {
-          background-color: #f7c8c8;
-          text-decoration: line-through;
+          gap: 10px;
+          padding: 20px 0 0 0;
+
+          .timeslot {
+            opacity: 1;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: "Playfair Display", serif;
+            padding: 0.4rem 0.65rem;
+            border-radius: 1px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.4s ease-in-out, opacity 0.3s ease;
+
+            border: 2px solid #c40d2e;
+            color: black;
+            background-color: #c40d2e;
+          }
+          .timeslot:hover {
+            background-color: white;
+            border: 2px solid white;
+            color: rgb(101, 101, 101);
+          }
+
+          .hide {
+            opacity: 0;
+          }
         }
       }
     }
@@ -197,7 +216,7 @@ body {
       padding: 50px;
       margin: 50px;
       border: 10px solid black;
-      width: 65%;
+      width: 55%;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
       grid-template-rows: 1fr 0.1fr 1fr 1fr;
@@ -208,6 +227,19 @@ body {
         "bigTable10 bigTable11 smallTable12 . bigTableGroup bigTableGroup bigTableGroup";
       justify-items: center;
       align-items: center;
+
+      .table rect {
+        stroke: #a0a0a0 !important;
+      }
+      .reserved rect {
+        stroke: #ff2200 !important;
+        transition: stroke 0.3s ease-in-out !important;
+      }
+      .some-availability rect {
+        stroke: #ad9113 !important;
+        transition: stroke 0.3s ease-in-out !important;
+      }
+
       .big.table[data-table-id="1"] {
         grid-area: bigTable1;
         transform: rotate(90deg);
@@ -277,42 +309,6 @@ body {
           padding-left: 20px;
         }
       }
-      /* .table-chairs-group {
-        fill: none;
-        stroke: #29a429;
-        stroke: #b2b2b2;
-        padding: 20px;
-        transition: stroke 0.3s ease-in-out;
-        stroke-width: 3;
-
-        .table {
-          rx: 2;
-          ry: 2;
-          width: 108;
-          height: 150;
-          stroke-width: 1.5;
-        }
-        .chair {
-          rx: 1;
-          ry: 2;
-          height: 54;
-          width: 19;
-          stroke-width: 1;
-        }
-        .chair-backing {
-          rx: 3;
-          ry: 3;
-        }
-      }
-      .table-chairs-group:hover {
-        stroke: #29a429;
-      }
-      .fully-booked {
-        stroke: #b83100;
-      }
-      .some-availability {
-        stroke: #cab25b;
-      } */
     }
   }
 }

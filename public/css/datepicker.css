@@ -1,6 +1,6 @@
 :root {
-  --datepicker-primary: #ff4500;
-  --datepicker-primary-accent: #ff4500;
+  --datepicker-primary: #c40d2e;
+  --datepicker-primary-accent: #921a30;
   --datepicker-bg-primary: #d6dae0;
   --datepicker-bg-secondary: #eaebec;
   --datepicker-bg-tertiary: #fdfdfd;
@@ -14,10 +14,10 @@
   line-height: 1.5;
   background-color: var(--datepicker-bg-tertiary);
   color: var(--datepicker-text-primary);
-  border-radius: 3px;
-  max-width: 350px;
+  border-radius: 1px;
+  max-width: 375px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2) 0 5px 10px 0 rgba(0, 0, 0, 0.2);
-  padding: 1rem;
+  padding: 1.5rem;
   box-sizing: border-box;
 
   button {
@@ -41,27 +41,33 @@
         margin: 0.5rem 0.5rem 0 0;
         border: 0;
         background-color: var(--datepicker-bg-secondary);
-        border-radius: 3px;
+        border-radius: 1px;
         padding: 0.5em 0.75em;
         font-weight: bold;
+        transition: all 0.4s ease;
         /* text-transform: uppercase; */
+      }
+      .quick-date-pick:hover {
+        background-color: #c40d2e;
+        color: white;
       }
     }
     .month-selector {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 0 7px 0 5px;
 
       .arrow-button {
         font-family: "Inter", sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 0;
+        border: 2px solid rgb(192, 192, 192);
         background-color: white;
-        border-radius: 4px;
-        width: 2.5rem;
-        height: 2.5rem;
+        border-radius: 1px;
+        width: 2.2rem;
+        height: 2.2rem;
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25), 0 0px 10px 0 rgba(0, 0, 0, 0.15);
       }
       .month-name {
@@ -75,6 +81,7 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-row-gap: 1rem;
+    /* padding: 10px; */
 
     .day-name {
       color: var(--datepicker-text-secondary);
@@ -86,21 +93,24 @@
     }
     .day-number {
       font-family: "Inter", sans-serif;
-      border: 0;
       padding: 0;
       width: 2.25rem;
       height: 2.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 3px;
+      border-radius: 1px;
       font-weight: 600;
       border: 2px solid transparent;
       background-color: transparent;
+      transition: color 0.3s ease-in-out;
     }
     .day-number:focus {
       color: var(--datepicker-primary);
-      border: 2px solid var(--datepicker-primary-accent);
+      border: 2px solid #c40d2e;
+    }
+    .day-number:hover {
+      color: #c40d2e;
     }
     .faded {
       color: var(--datepicker-text-secondary);

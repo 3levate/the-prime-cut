@@ -8,6 +8,7 @@ const todayDateFormatted = new Date().toISOString().split("T")[0];
 const reservations = getReservations();
 let CURRENT_MONTH = new Date();
 const DAY_OF_WEEK_NAME_ID_MAPPING = [6, 0, 1, 2, 3, 4, 5];
+const ALL_RESTAURANT_OPEN_HOURS = [3, 4, 5, 6, 7, 8, 9];
 
 async function getReservations() {
   try {
@@ -22,41 +23,79 @@ async function getReservations() {
 async function highlightReservedTables(date) {
   const localReservations = await reservations;
   for (const [tableNumber, tableReservations] of localReservations.entries()) {
-    const table = document.querySelector(
-      `.table-chairs-group[data-table-number="${tableNumber + 1}"]`
-    );
+    const table = document.querySelector(`.table[data-table-id="${tableNumber + 1}"]`);
 
     if (tableReservations[date] && tableReservations[date].length) {
       if (tableReservations[date].length == TOTAL_HOURS_RESTAURANT_OPEN_DAILY) {
+        // console.log("table is fully booked", table);
         table.classList.remove("some-availability");
-        table.classList.add("fully-booked");
+        table.classList.add("reserved");
       } else if (tableReservations[date].length < TOTAL_HOURS_RESTAURANT_OPEN_DAILY) {
-        table.classList.remove("fully-booked");
+        table.classList.remove("reserved");
         table.classList.add("some-availability");
       }
     } else {
       // colour tables green or just leave as outline?
-      table.classList.remove("fully-booked");
+      table.classList.remove("reserved");
       table.classList.remove("some-availability");
     }
   }
 }
 
-async function showHoveredTableInfo(tableNumber) {
+async function addAvailableTableTimeslots(tableNumber) {
   const localReservations = await reservations;
+  const timeslotsContainer = document.getElementById("timeslots-container");
   const currentDateHoursTableReserved =
-    localReservations[tableNumber - 1][CURRENT_MONTH.toISOString().split("T")[0]];
+    localReservations[tableNumber - 1]?.[CURRENT_MONTH.toISOString().split("T")[0]];
 
-  //reset timeslots
-  document.querySelectorAll(".timeslot").forEach((timeslot) => {
-    timeslot.classList.remove("reserved");
-    timeslot.classList.add("open");
+  resetAllTimeslots();
+
+  //add available timeslots
+  if (!currentDateHoursTableReserved) {
+    addAllTimeslots(timeslotsContainer);
+  } else {
+    const availableHours = ALL_RESTAURANT_OPEN_HOURS.filter(
+      (hour) => !currentDateHoursTableReserved.includes(hour)
+    );
+    for (const hour of availableHours.sort()) {
+      const timeslot = document.createElement("button");
+      timeslot.classList.add("timeslot", "hide");
+      timeslot.setAttribute("data-hour-id", hour);
+      timeslot.textContent = `${hour}:00 PM`;
+      timeslotsContainer.appendChild(timeslot);
+
+      void timeslot.offsetWidth;
+      timeslot.classList.remove("hide");
+    }
+  }
+}
+
+function resetAllTimeslots() {
+  const allTimeslots = document.querySelectorAll(".timeslot");
+
+  //FIXME even listener doesn't fire
+  // allTimeslots.forEach((timeslot) => {
+  //   timeslot.addEventListener("transitionend", (event) => {
+  //     console.log("triggered transitionend");
+  //     event.target.remove();
+  //   });
+  // });
+
+  allTimeslots.forEach((timeslot) => {
+    timeslot.remove();
   });
+}
 
-  for (const hour of currentDateHoursTableReserved) {
-    const timeslot = document.querySelector(`.timeslot[data-hour-id="${hour}"]`);
-    timeslot.classList.remove("open");
-    timeslot.classList.add("reserved");
+function addAllTimeslots(timeslotsContainer) {
+  for (let i = 3; i <= 9; i++) {
+    const timeslot = document.createElement("button");
+    timeslot.classList.add("timeslot", "hide");
+    timeslot.setAttribute("data-hour-id", i);
+    timeslot.textContent = `${i}:00 PM`;
+    timeslotsContainer.appendChild(timeslot);
+
+    void timeslot.offsetWidth;
+    timeslot.classList.remove("hide");
   }
 }
 
@@ -127,7 +166,7 @@ function setDatePickerMonth() {
   //add event listeners back
   document.querySelectorAll(".day-number").forEach((day) =>
     day.addEventListener("focus", (event) => {
-      console.log("focused on day", event.target.textContent);
+      // console.log("focused on day", event.target.textContent);
       CURRENT_MONTH.setDate(event.target.textContent);
       highlightReservedTables(CURRENT_MONTH.toISOString().split("T")[0]);
     })
@@ -161,9 +200,9 @@ function tomorrowFocus() {
 setDatePickerMonth();
 highlightReservedTables(todayDateFormatted);
 
-document.querySelectorAll(".table-chairs-group").forEach((table) =>
+document.querySelectorAll(".table").forEach((table) =>
   table.addEventListener("mouseenter", (event) => {
-    console.log("hovering over table", event.target);
-    showHoveredTableInfo(event.target.dataset.tableNumber); //automatically converted to camel case from kebab case
+    // console.log("hovering over table", event.target);
+    addAvailableTableTimeslots(event.target.dataset.tableId); //automatically converted to camel case from kebab case
   })
 );

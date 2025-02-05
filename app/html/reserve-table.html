@@ -48,43 +48,38 @@
       </div>
     </div>
     <div id="reserve-a-table-container">
-      <div id="reserve-a-table-side-panel">
+      <div id="reserve-a-table-bg">
         <h2>Make a reservation</h2>
-        <div class="datepicker">
-          <div class="datepicker-top">
-            <div class="datepicker-quick-pick-group">
-              <button class="quick-date-pick" onclick="todayFocus()">Today</button>
-              <button class="quick-date-pick" onclick="tomorrowFocus()">Tomorrow</button>
-              <button class="quick-date-pick">This Weekend</button>
+        <div id="reserve-a-table-side-panel">
+          <div class="datepicker">
+            <div class="datepicker-top">
+              <div class="datepicker-quick-pick-group">
+                <button class="quick-date-pick" onclick="todayFocus()">Today</button>
+                <button class="quick-date-pick" onclick="tomorrowFocus()">Tomorrow</button>
+                <button class="quick-date-pick">This Weekend</button>
+              </div>
+              <div class="month-selector">
+                <button class="arrow-button" onclick="previousMonth()">
+                  <i class="material-symbols-outlined">chevron_left</i>
+                </button>
+                <span class="month-name"></span>
+                <button class="arrow-button" onclick="nextMonth()">
+                  <i class="material-symbols-outlined">chevron_right</i>
+                </button>
+              </div>
             </div>
-            <div class="month-selector">
-              <button class="arrow-button" onclick="previousMonth()">
-                <i class="material-symbols-outlined">chevron_left</i>
-              </button>
-              <span class="month-name"></span>
-              <button class="arrow-button" onclick="nextMonth()">
-                <i class="material-symbols-outlined">chevron_right</i>
-              </button>
+            <div class="datepicker-calendar">
+              <span class="day-name">Mon</span>
+              <span class="day-name">Tue</span>
+              <span class="day-name">Wed</span>
+              <span class="day-name">Thu</span>
+              <span class="day-name">Fri</span>
+              <span class="day-name">Sat</span>
+              <span class="day-name">Sun</span>
             </div>
           </div>
-          <div class="datepicker-calendar">
-            <span class="day-name">Mon</span>
-            <span class="day-name">Tue</span>
-            <span class="day-name">Wed</span>
-            <span class="day-name">Thu</span>
-            <span class="day-name">Fri</span>
-            <span class="day-name">Sat</span>
-            <span class="day-name">Sun</span>
-          </div>
-        </div>
-        <div class="timeslots">
-          <div class="timeslot open" data-hour-id="3">3:00 pm</div>
-          <div class="timeslot open" data-hour-id="4">4:00 pm</div>
-          <div class="timeslot open" data-hour-id="5">5:00 pm</div>
-          <div class="timeslot open" data-hour-id="6">6:00 pm</div>
-          <div class="timeslot open" data-hour-id="7">7:00 pm</div>
-          <div class="timeslot open" data-hour-id="8">8:00 pm</div>
-          <div class="timeslot open" data-hour-id="9">9:00 pm</div>
+          <h3>Select a time</h3>
+          <div id="timeslots-container"></div>
         </div>
       </div>
 
