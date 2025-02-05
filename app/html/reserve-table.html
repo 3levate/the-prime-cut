@@ -30,7 +30,25 @@
     </script>
 
     <div id="overlay"></div>
-    <div id="confirm-reservation"></div>
+    <div id="confirm-reservation">
+      <button id="close" onclick="closeConfirmationWindow()">&#x2715;</button>
+      <div id="confirm-reservation-container">
+        <div id="header-container">
+          <img src="/assets/theprimecut_white_cropped.png" alt="The Prime Cut" id="logo" />
+          <div id="line"></div>
+          <h1>Confirm your reservation</h1>
+        </div>
+        <form>
+          <input type="text" name="name" id="name" placeholder="Name" class="inputs" />
+          <input type="email" name="email" id="email" placeholder="Email" class="inputs" />
+          <!-- <input type="tel" name="phone-number" id="phone-number" placeholder="Phone Number" /> -->
+          <fieldset>
+            <input type="reset" value="Cancel" id="cancel" />
+            <input type="submit" value="Confirm" id="confirm" />
+          </fieldset>
+        </form>
+      </div>
+    </div>
 
     <div id="banner">
       <h1>Your table awaits</h1>

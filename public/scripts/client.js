@@ -102,6 +102,13 @@ function openConfirmationWindow() {
   confirmReservation.classList.add("active");
 }
 
+function closeConfirmationWindow() {
+  const overlay = document.getElementById("overlay");
+  const confirmReservation = document.getElementById("confirm-reservation");
+  overlay.classList.remove("active");
+  confirmReservation.classList.remove("active");
+}
+
 function setDatePickerMonth() {
   const datepickerCalendar = document.querySelector(".datepicker-calendar");
   const firstDayOfCurrentMonth_NameID = new Date(
