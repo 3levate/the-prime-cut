@@ -377,7 +377,6 @@ body {
     }
 
     #restaurant-layout {
-      padding: 50px;
       margin: 50px;
       border-radius: 1px;
       border: 10px solid black;
@@ -396,6 +395,38 @@ body {
       .table rect {
         stroke: #a0a0a0 !important;
       }
+      .table {
+        transition: all 0.15s ease-in-out;
+      }
+      .table:hover {
+        /* -webkit-box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.19);
+        box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.19); */
+
+        background: linear-gradient(to right, black 2px, transparent 2px) 0 0,
+          linear-gradient(to right, black 2px, transparent 2px) 0 100%,
+          linear-gradient(to left, black 2px, transparent 2px) 100% 0,
+          linear-gradient(to left, black 2px, transparent 2px) 100% 100%,
+          linear-gradient(to bottom, black 2px, transparent 2px) 0 0,
+          linear-gradient(to bottom, black 2px, transparent 2px) 100% 0,
+          linear-gradient(to top, black 2px, transparent 2px) 0 100%,
+          linear-gradient(to top, black 2px, transparent 2px) 100% 100%;
+
+        background-repeat: no-repeat;
+        background-size: 10px 10px;
+      }
+      .selected {
+        background: linear-gradient(to right, black 2px, transparent 2px) 0 0,
+          linear-gradient(to right, black 2px, transparent 2px) 0 100%,
+          linear-gradient(to left, black 2px, transparent 2px) 100% 0,
+          linear-gradient(to left, black 2px, transparent 2px) 100% 100%,
+          linear-gradient(to bottom, black 2px, transparent 2px) 0 0,
+          linear-gradient(to bottom, black 2px, transparent 2px) 100% 0,
+          linear-gradient(to top, black 2px, transparent 2px) 0 100%,
+          linear-gradient(to top, black 2px, transparent 2px) 100% 100%;
+
+        background-repeat: no-repeat;
+        background-size: 10px 10px;
+      }
       .reserved rect {
         stroke: #ff2200 !important;
         transition: stroke 0.3s ease-in-out !important;
@@ -408,71 +439,53 @@ body {
       .big.table[data-table-id="1"] {
         grid-area: bigTable1;
         transform: rotate(90deg);
-        padding: 0;
       }
       .big.table[data-table-id="2"] {
         grid-area: bigTable2;
-        padding: 0;
       }
       .small.table[data-table-id="3"] {
         grid-area: smallTable3;
         transform: rotate(90deg);
-        padding: 0;
       }
       .small.table[data-table-id="4"] {
         grid-area: smallTable4;
-        padding: 0;
       }
       .big.table[data-table-id="5"] {
         grid-area: bigTable5;
         transform: rotate(90deg);
-        padding: 0;
       }
       .small.table[data-table-id="6"] {
         grid-area: smallTable6;
-        padding: 0;
       }
       .small.table[data-table-id="7"] {
         grid-area: smallTable7;
         transform: rotate(90deg);
-        padding: 0;
       }
       .small.table[data-table-id="8"] {
         grid-area: smallTable8;
         transform: rotate(90deg);
-        padding: 0;
       }
       .small.table[data-table-id="9"] {
         grid-area: smallTable9;
         transform: rotate(90deg);
-        padding: 0;
       }
       .big.table[data-table-id="10"] {
         grid-area: bigTable10;
-        padding: 0;
       }
       .big.table[data-table-id="11"] {
         grid-area: bigTable11;
-        padding: 0;
       }
       .small.table[data-table-id="12"] {
         grid-area: smallTable12;
         transform: rotate(90deg);
-        padding: 0;
       }
       #big-table-wrapper {
         grid-area: bigTableGroup;
         display: flex;
         flex-direction: row;
         justify-content: center;
+        gap: 20px;
         width: 80%;
-
-        .big.table[data-table-id="13"] {
-          padding-right: 20px;
-        }
-        .big.table[data-table-id="14"] {
-          padding-left: 20px;
-        }
       }
     }
   }

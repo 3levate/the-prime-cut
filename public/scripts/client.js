@@ -1,14 +1,11 @@
 const TOTAL_HOURS_RESTAURANT_OPEN_DAILY = 7;
 const today = new Date();
-// const todayDateFormatted = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
-//   2,
-//   "0"
-// )}-${String(today.getDate()).padStart(2, "0")}`;
 const todayDateFormatted = new Date().toISOString().split("T")[0];
 const reservations = getReservations();
-let CURRENT_MONTH = new Date();
+let GLOBAL_STATE_CURRENT_MONTH = new Date();
 const DAY_OF_WEEK_NAME_ID_MAPPING = [6, 0, 1, 2, 3, 4, 5];
 const ALL_RESTAURANT_OPEN_HOURS = [3, 4, 5, 6, 7, 8, 9];
+let GLOBAL_STATE_SELECTED_TABLE = null;
 
 async function getReservations() {
   try {
@@ -22,6 +19,7 @@ async function getReservations() {
 
 async function highlightReservedTables(date) {
   const localReservations = await reservations;
+
   for (const [tableNumber, tableReservations] of localReservations.entries()) {
     const table = document.querySelector(`.table[data-table-id="${tableNumber + 1}"]`);
 
@@ -43,10 +41,12 @@ async function highlightReservedTables(date) {
 }
 
 async function addAvailableTableTimeslots(tableNumber) {
+  if (GLOBAL_STATE_SELECTED_TABLE) return;
+
   const localReservations = await reservations;
   const timeslotsContainer = document.getElementById("timeslots-container");
   const currentDateHoursTableReserved =
-    localReservations[tableNumber - 1]?.[CURRENT_MONTH.toISOString().split("T")[0]];
+    localReservations[tableNumber - 1]?.[GLOBAL_STATE_CURRENT_MONTH.toISOString().split("T")[0]];
 
   deleteAllTimeslots();
 
@@ -101,13 +101,16 @@ function openConfirmationWindow(hour) {
   overlay.classList.add("active");
   confirmReservation.classList.add("active");
 
-  document.querySelector("#date .info").textContent = CURRENT_MONTH.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
+  document.querySelector("#date .info").textContent = GLOBAL_STATE_CURRENT_MONTH.toLocaleDateString(
+    "en-US",
+    {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    }
+  );
   document.querySelector("#time .info").textContent = `${hour}:00 PM`;
-  document.querySelector("#table-number .info").textContent = `No. 23`;
+  document.querySelector("#table-number .info").textContent = `No. ${GLOBAL_STATE_SELECTED_TABLE}`;
 }
 
 function closeConfirmationWindow() {
@@ -120,18 +123,18 @@ function closeConfirmationWindow() {
 function setDatePickerMonth() {
   const datepickerCalendar = document.querySelector(".datepicker-calendar");
   const firstDayOfCurrentMonth_NameID = new Date(
-    CURRENT_MONTH.getFullYear(),
-    CURRENT_MONTH.getMonth(),
+    GLOBAL_STATE_CURRENT_MONTH.getFullYear(),
+    GLOBAL_STATE_CURRENT_MONTH.getMonth(),
     1
   ).getDay();
   const lastDayOfPreviousMonth = new Date(
-    CURRENT_MONTH.getFullYear(),
-    CURRENT_MONTH.getMonth() + 1,
+    GLOBAL_STATE_CURRENT_MONTH.getFullYear(),
+    GLOBAL_STATE_CURRENT_MONTH.getMonth() + 1,
     0
   ).getDate();
   const daysInCurrentMonth = new Date(
-    CURRENT_MONTH.getFullYear(),
-    CURRENT_MONTH.getMonth() + 1,
+    GLOBAL_STATE_CURRENT_MONTH.getFullYear(),
+    GLOBAL_STATE_CURRENT_MONTH.getMonth() + 1,
     0
   ).getDate();
   const numOfPrevMonthDaysToCreate = DAY_OF_WEEK_NAME_ID_MAPPING[firstDayOfCurrentMonth_NameID];
@@ -143,10 +146,13 @@ function setDatePickerMonth() {
   });
 
   //set month name displayed on calendar to current global variable month
-  document.querySelector(".month-name").textContent = CURRENT_MONTH.toLocaleString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
+  document.querySelector(".month-name").textContent = GLOBAL_STATE_CURRENT_MONTH.toLocaleString(
+    "en-US",
+    {
+      month: "long",
+      year: "numeric",
+    }
+  );
 
   //add faded days from the previous month (e.g. 29, 30, 31)
   for (
@@ -176,8 +182,8 @@ function createDayNumber(dataDayNummber) {
   dayNumber.textContent = dataDayNummber;
   dayNumber.setAttribute("data-day-number", dataDayNummber);
   dayNumber.onclick = (event) => {
-    CURRENT_MONTH.setDate(event.target.textContent);
-    highlightReservedTables(CURRENT_MONTH.toISOString().split("T")[0]);
+    GLOBAL_STATE_CURRENT_MONTH.setDate(event.target.textContent);
+    highlightReservedTables(GLOBAL_STATE_CURRENT_MONTH.toISOString().split("T")[0]);
 
     const clickedDay = document.querySelector(".clicked");
     clickedDay ? clickedDay.classList.remove("clicked") : console.log("no clicked day");
@@ -187,17 +193,17 @@ function createDayNumber(dataDayNummber) {
 }
 
 function nextMonth() {
-  CURRENT_MONTH.setMonth(CURRENT_MONTH.getMonth() + 1);
+  GLOBAL_STATE_CURRENT_MONTH.setMonth(GLOBAL_STATE_CURRENT_MONTH.getMonth() + 1);
   setDatePickerMonth();
 }
 
 function previousMonth() {
-  CURRENT_MONTH.setMonth(CURRENT_MONTH.getMonth() - 1);
+  GLOBAL_STATE_CURRENT_MONTH.setMonth(GLOBAL_STATE_CURRENT_MONTH.getMonth() - 1);
   setDatePickerMonth();
 }
 
 function todayFocus() {
-  CURRENT_MONTH.setMonth(today.getMonth());
+  GLOBAL_STATE_CURRENT_MONTH.setMonth(today.getMonth());
   setDatePickerMonth();
   document
     .querySelector(`.day-number[data-day-number="${today.getDate()}"]`)
@@ -207,7 +213,7 @@ function todayFocus() {
 function tomorrowFocus() {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
-  CURRENT_MONTH.setMonth(tomorrow.getMonth());
+  GLOBAL_STATE_CURRENT_MONTH.setMonth(tomorrow.getMonth());
   setDatePickerMonth();
   document
     .querySelector(`.day-number[data-day-number="${tomorrow.getDate()}"]`)
@@ -226,10 +232,21 @@ function showSuccessScreen() {}
 
 setDatePickerMonth();
 highlightReservedTables(todayDateFormatted);
+document
+  .querySelector(`.day-number[data-day-number="${today.getDate()}"]`)
+  .classList.add("clicked");
 
-document.querySelectorAll(".table").forEach((table) =>
+document.querySelectorAll(".table").forEach((table) => {
   table.addEventListener("mouseenter", (event) => {
-    // console.log("hovering over table", event.target);
     addAvailableTableTimeslots(event.target.dataset.tableId); //automatically converted to camel case from kebab case
-  })
-);
+  });
+  table.addEventListener("click", (event) => {
+    const table = event.currentTarget;
+    if (table.classList.contains("reserved") || GLOBAL_STATE_SELECTED_TABLE) return;
+
+    document.querySelector(".selected")?.classList.remove("selected");
+    table.classList.add("selected");
+
+    GLOBAL_STATE_SELECTED_TABLE = table.dataset.tableId;
+  });
+});

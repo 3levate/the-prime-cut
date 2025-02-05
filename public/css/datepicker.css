@@ -34,22 +34,23 @@
     .datepicker-quick-pick-group {
       display: flex;
       margin: 0 0 1rem 0;
-      padding-left: 5px;
       font-size: 0.9rem;
+      gap: 10px;
+      flex-direction: row;
+      justify-content: center;
 
       .quick-date-pick {
-        margin: 0.5rem 0.5rem 0 0;
-        border: 0;
+        margin: 0;
+        border: none;
         background-color: var(--datepicker-bg-secondary);
         border-radius: 1px;
-        padding: 0.5em 0.75em;
+        padding: 0.6rem;
         font-weight: bold;
-        transition: all 0.4s ease;
-        /* text-transform: uppercase; */
+        transition: all 0.3s ease-in-out;
       }
       .quick-date-pick:hover {
-        background-color: #c40d2e;
         color: white;
+        background-color: black;
       }
     }
     .month-selector {
