@@ -48,32 +48,41 @@ async function addAvailableTableTimeslots(tableNumber) {
   const currentDateHoursTableReserved =
     localReservations[tableNumber - 1]?.[CURRENT_MONTH.toISOString().split("T")[0]];
 
-  resetAllTimeslots();
+  deleteAllTimeslots();
 
-  //add available timeslots
-  if (!currentDateHoursTableReserved) {
-    addAllTimeslots(timeslotsContainer);
+  if (!currentDateHoursTableReserved || !currentDateHoursTableReserved.length) {
+    //add all timeslots
+    for (let i = 3; i <= 9; i++) {
+      createTimeslot(i, timeslotsContainer);
+    }
   } else {
     const availableHours = ALL_RESTAURANT_OPEN_HOURS.filter(
       (hour) => !currentDateHoursTableReserved.includes(hour)
     );
     for (const hour of availableHours.sort()) {
-      const timeslot = document.createElement("button");
-      timeslot.classList.add("timeslot", "hide");
-      timeslot.setAttribute("data-hour-id", hour);
-      timeslot.textContent = `${hour}:00 PM`;
-      timeslotsContainer.appendChild(timeslot);
-
-      void timeslot.offsetWidth;
-      timeslot.classList.remove("hide");
+      createTimeslot(hour, timeslotsContainer);
     }
   }
 }
 
-function resetAllTimeslots() {
+function createTimeslot(hour, timeslotsContainer) {
+  const timeslot = document.createElement("button");
+  timeslot.classList.add("timeslot", "hide");
+  timeslot.setAttribute("data-hour-id", hour);
+  timeslot.textContent = `${hour}:00 PM`;
+  timeslot.onclick = () => {
+    openConfirmationWindow();
+  };
+  timeslotsContainer.appendChild(timeslot);
+
+  void timeslot.offsetWidth;
+  timeslot.classList.remove("hide");
+}
+
+function deleteAllTimeslots() {
   const allTimeslots = document.querySelectorAll(".timeslot");
 
-  //FIXME even listener doesn't fire
+  //FIXME event listener doesn't fire
   // allTimeslots.forEach((timeslot) => {
   //   timeslot.addEventListener("transitionend", (event) => {
   //     console.log("triggered transitionend");
@@ -86,33 +95,11 @@ function resetAllTimeslots() {
   });
 }
 
-function addAllTimeslots(timeslotsContainer) {
-  for (let i = 3; i <= 9; i++) {
-    const timeslot = document.createElement("button");
-    timeslot.classList.add("timeslot", "hide");
-    timeslot.setAttribute("data-hour-id", i);
-    timeslot.textContent = `${i}:00 PM`;
-    timeslotsContainer.appendChild(timeslot);
-
-    void timeslot.offsetWidth;
-    timeslot.classList.remove("hide");
-  }
-}
-
-function createFadedDayNumber(dataDayNummber) {
-  const dayNumber = document.createElement("button");
-  dayNumber.classList.add("day-number", "faded");
-  dayNumber.textContent = dataDayNummber;
-  dayNumber.setAttribute("data-day-number", dataDayNummber);
-  return dayNumber;
-}
-
-function createDayNumber(dataDayNummber) {
-  const dayNumber = document.createElement("button");
-  dayNumber.classList.add("day-number");
-  dayNumber.textContent = dataDayNummber;
-  dayNumber.setAttribute("data-day-number", dataDayNummber);
-  return dayNumber;
+function openConfirmationWindow() {
+  const overlay = document.getElementById("overlay");
+  const confirmReservation = document.getElementById("confirm-reservation");
+  overlay.classList.add("active");
+  confirmReservation.classList.add("active");
 }
 
 function setDatePickerMonth() {
@@ -133,44 +120,55 @@ function setDatePickerMonth() {
     0
   ).getDate();
   const numOfPrevMonthDaysToCreate = DAY_OF_WEEK_NAME_ID_MAPPING[firstDayOfCurrentMonth_NameID];
+  const totalDisplayedDays = 35 - daysInCurrentMonth - numOfPrevMonthDaysToCreate < 0 ? 42 : 35;
 
   //delete any days from previous month
   document.querySelectorAll(".day-number").forEach((day) => {
     day.remove();
   });
 
+  //set month name displayed on calendar to current global variable month
   document.querySelector(".month-name").textContent = CURRENT_MONTH.toLocaleString("en-US", {
     month: "long",
     year: "numeric",
   });
+
+  //add faded days from the previous month (e.g. 29, 30, 31)
   for (
     let i = lastDayOfPreviousMonth - numOfPrevMonthDaysToCreate;
     i < lastDayOfPreviousMonth;
     i++
   ) {
-    datepickerCalendar.appendChild(createFadedDayNumber(i));
+    const dayNumber = createDayNumber(i);
+    dayNumber.classList.add("faded");
+    datepickerCalendar.appendChild(dayNumber);
   }
+  //add normal days from current month
   for (let i = 1; i <= daysInCurrentMonth; i++) {
     datepickerCalendar.appendChild(createDayNumber(i));
   }
-  if (35 - daysInCurrentMonth - numOfPrevMonthDaysToCreate < 0) {
-    for (let i = 1; i <= 42 - daysInCurrentMonth - numOfPrevMonthDaysToCreate; i++) {
-      datepickerCalendar.appendChild(createFadedDayNumber(i));
-    }
-  } else {
-    for (let i = 1; i <= 35 - daysInCurrentMonth - numOfPrevMonthDaysToCreate; i++) {
-      datepickerCalendar.appendChild(createFadedDayNumber(i));
-    }
+  //add faded days from the next month (e.g. 1, 2, 3)
+  for (let i = 1; i <= totalDisplayedDays - daysInCurrentMonth - numOfPrevMonthDaysToCreate; i++) {
+    const dayNumber = createDayNumber(i);
+    dayNumber.classList.add("faded");
+    datepickerCalendar.appendChild(dayNumber);
   }
+}
 
-  //add event listeners back
-  document.querySelectorAll(".day-number").forEach((day) =>
-    day.addEventListener("focus", (event) => {
-      // console.log("focused on day", event.target.textContent);
-      CURRENT_MONTH.setDate(event.target.textContent);
-      highlightReservedTables(CURRENT_MONTH.toISOString().split("T")[0]);
-    })
-  );
+function createDayNumber(dataDayNummber) {
+  const dayNumber = document.createElement("button");
+  dayNumber.classList.add("day-number");
+  dayNumber.textContent = dataDayNummber;
+  dayNumber.setAttribute("data-day-number", dataDayNummber);
+  dayNumber.onclick = (event) => {
+    CURRENT_MONTH.setDate(event.target.textContent);
+    highlightReservedTables(CURRENT_MONTH.toISOString().split("T")[0]);
+
+    const clickedDay = document.querySelector(".clicked");
+    clickedDay ? clickedDay.classList.remove("clicked") : console.log("no clicked day");
+    event.target.classList.add("clicked");
+  };
+  return dayNumber;
 }
 
 function nextMonth() {
@@ -186,7 +184,9 @@ function previousMonth() {
 function todayFocus() {
   CURRENT_MONTH.setMonth(today.getMonth());
   setDatePickerMonth();
-  document.querySelector(`.day-number[data-day-number="${today.getDate()}"]`).focus();
+  document
+    .querySelector(`.day-number[data-day-number="${today.getDate()}"]`)
+    .classList.add("clicked");
 }
 
 function tomorrowFocus() {
@@ -194,7 +194,9 @@ function tomorrowFocus() {
   tomorrow.setDate(tomorrow.getDate() + 1);
   CURRENT_MONTH.setMonth(tomorrow.getMonth());
   setDatePickerMonth();
-  document.querySelector(`.day-number[data-day-number="${tomorrow.getDate()}"]`).focus();
+  document
+    .querySelector(`.day-number[data-day-number="${tomorrow.getDate()}"]`)
+    .classList.add("clicked");
 }
 
 setDatePickerMonth();

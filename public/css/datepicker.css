@@ -105,7 +105,7 @@
       background-color: transparent;
       transition: color 0.3s ease-in-out;
     }
-    .day-number:focus {
+    .clicked {
       color: var(--datepicker-primary);
       border: 2px solid #c40d2e;
     }
