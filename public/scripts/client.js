@@ -2,10 +2,11 @@ const TOTAL_HOURS_RESTAURANT_OPEN_DAILY = 7;
 const today = new Date();
 const todayDateFormatted = new Date().toISOString().split("T")[0];
 const reservations = getReservations();
-let GLOBAL_STATE_CURRENT_MONTH = new Date();
 const DAY_OF_WEEK_NAME_ID_MAPPING = [6, 0, 1, 2, 3, 4, 5];
 const ALL_RESTAURANT_OPEN_HOURS = [3, 4, 5, 6, 7, 8, 9];
+let GLOBAL_STATE_CURRENT_MONTH = new Date();
 let GLOBAL_STATE_SELECTED_TABLE = null;
+let GLOBAL_STATE_SELECTED_TIMESLOT = null;
 
 async function getReservations() {
   try {
@@ -19,13 +20,13 @@ async function getReservations() {
 
 async function highlightReservedTables(date) {
   const localReservations = await reservations;
+  console.log("highlightReservedTables called with date", date);
 
   for (const [tableNumber, tableReservations] of localReservations.entries()) {
     const table = document.querySelector(`.table[data-table-id="${tableNumber + 1}"]`);
 
     if (tableReservations[date] && tableReservations[date].length) {
       if (tableReservations[date].length == TOTAL_HOURS_RESTAURANT_OPEN_DAILY) {
-        // console.log("table is fully booked", table);
         table.classList.remove("some-availability");
         table.classList.add("reserved");
       } else if (tableReservations[date].length < TOTAL_HOURS_RESTAURANT_OPEN_DAILY) {
@@ -36,6 +37,7 @@ async function highlightReservedTables(date) {
       // colour tables green or just leave as outline?
       table.classList.remove("reserved");
       table.classList.remove("some-availability");
+      console.log("table is available", table);
     }
   }
 }
@@ -71,7 +73,8 @@ function createTimeslot(hour, timeslotsContainer) {
   timeslot.setAttribute("data-hour-id", hour);
   timeslot.textContent = `${hour}:00 PM`;
   timeslot.onclick = (event) => {
-    openConfirmationWindow(event.target.dataset.hourId);
+    GLOBAL_STATE_SELECTED_TIMESLOT = event.target.dataset.hourId;
+    openConfirmationWindow();
   };
   timeslotsContainer.appendChild(timeslot);
 
@@ -95,7 +98,7 @@ function deleteAllTimeslots() {
   });
 }
 
-function openConfirmationWindow(hour) {
+function openConfirmationWindow() {
   const overlay = document.getElementById("overlay");
   const confirmReservation = document.getElementById("confirm-reservation");
   overlay.classList.add("active");
@@ -109,7 +112,7 @@ function openConfirmationWindow(hour) {
       day: "numeric",
     }
   );
-  document.querySelector("#time .info").textContent = `${hour}:00 PM`;
+  document.querySelector("#time .info").textContent = `${GLOBAL_STATE_SELECTED_TIMESLOT}:00 PM`;
   document.querySelector("#table-number .info").textContent = `No. ${GLOBAL_STATE_SELECTED_TABLE}`;
 }
 
@@ -203,32 +206,55 @@ function previousMonth() {
 }
 
 function todayFocus() {
-  GLOBAL_STATE_CURRENT_MONTH.setMonth(today.getMonth());
+  GLOBAL_STATE_CURRENT_MONTH = new Date(today);
   setDatePickerMonth();
   document
     .querySelector(`.day-number[data-day-number="${today.getDate()}"]`)
     .classList.add("clicked");
+  highlightReservedTables(GLOBAL_STATE_CURRENT_MONTH.toISOString().split("T")[0]);
 }
 
 function tomorrowFocus() {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
-  GLOBAL_STATE_CURRENT_MONTH.setMonth(tomorrow.getMonth());
+  GLOBAL_STATE_CURRENT_MONTH = new Date(tomorrow);
   setDatePickerMonth();
   document
     .querySelector(`.day-number[data-day-number="${tomorrow.getDate()}"]`)
     .classList.add("clicked");
+  highlightReservedTables(GLOBAL_STATE_CURRENT_MONTH.toISOString().split("T")[0]);
 }
 
-function storeReservation(event) {
+async function storeReservation(event) {
   const { name, email } = Object.fromEntries(new FormData(event.target).entries());
-  console.log(name, email);
 
-  showSuccessScreen(name, email);
-  return false;
+  console.log("table -1", GLOBAL_STATE_SELECTED_TABLE - 1);
+
+  try {
+    const response = await fetch("http://localhost:8000/reservations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        date: GLOBAL_STATE_CURRENT_MONTH.toISOString().split("T")[0],
+        time: GLOBAL_STATE_SELECTED_TIMESLOT,
+        table: GLOBAL_STATE_SELECTED_TABLE - 1,
+      }),
+    });
+    console.log("response", response);
+    // showSuccessScreen(name, email, await response.json());
+    return false;
+  } catch (error) {
+    console.log(error);
+    alert("Error updating rervations, please try again.");
+    return false;
+  }
 }
 
-function showSuccessScreen() {}
+function showSuccessScreen(name, email, response) {
+  console.log("showSuccessScreen called", response);
+}
 
 setDatePickerMonth();
 highlightReservedTables(todayDateFormatted);
