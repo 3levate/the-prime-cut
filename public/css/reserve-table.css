@@ -124,7 +124,7 @@ body {
           height: 100px;
           background-color: #c40d2e;
         }
-        h1 {
+        #reservation-status {
           color: white;
           font-family: "Playfair Display", serif;
           font-weight: normal;
@@ -163,7 +163,7 @@ body {
           }
         }
       }
-      form {
+      #reservation-form {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -236,6 +236,22 @@ body {
           }
         }
       }
+      #reservation-success {
+        display: none;
+
+        #success-message {
+          color: white;
+          font-family: "proxima-nova", sans-serif;
+          font-weight: 600;
+        }
+      }
+      .inactive {
+        display: none !important;
+      }
+      .active {
+        display: flex !important;
+        flex-direction: column;
+      }
     }
   }
   #confirm-reservation.active {
@@ -307,6 +323,8 @@ body {
     background-color: white;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    position: relative;
 
     #reserve-a-table-bg {
       background-color: black;
@@ -377,31 +395,74 @@ body {
     }
 
     #restaurant-layout {
-      margin: 50px;
+      margin: 60px 60px 60px 50px;
       border-radius: 1px;
       border: 10px solid black;
       width: 55%;
+      height: auto;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-      grid-template-rows: 1fr 0.1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
       grid-template-areas:
-        "bigTable1 . bigTable2 smallTable3 . . ."
-        ". . smallTable4 . . . ."
-        "bigTable5 . smallTable6 . smallTable7 smallTable8 smallTable9"
+        "bigTable1 . bigTable2 smallTable3 . corner corner"
+        "bigTable5 . smallTableGroup . smallTable7 smallTable8 smallTable9"
         "bigTable10 bigTable11 smallTable12 . bigTableGroup bigTableGroup bigTableGroup";
       justify-items: center;
       align-items: center;
 
+      .window {
+        width: 100px;
+        height: 50px;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        background-color: white;
+
+        p {
+          font-family: "Playfair Display", serif;
+          font-size: 0.7rem;
+          text-transform: uppercase;
+        }
+        .window-pane {
+          width: 100%;
+          height: 3px;
+          background-color: white;
+          border-top: 1px solid black;
+          border-bottom: 1px solid black;
+        }
+      }
       .table rect {
         stroke: #a0a0a0 !important;
       }
       .table {
         transition: all 0.15s ease-in-out;
+        cursor: pointer;
       }
       .table:hover {
         /* -webkit-box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.19);
         box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.19); */
 
+        background: linear-gradient(to right, grey 2px, transparent 2px) 0 0,
+          linear-gradient(to right, grey 2px, transparent 2px) 0 100%,
+          linear-gradient(to left, grey 2px, transparent 2px) 100% 0,
+          linear-gradient(to left, grey 2px, transparent 2px) 100% 100%,
+          linear-gradient(to bottom, grey 2px, transparent 2px) 0 0,
+          linear-gradient(to bottom, grey 2px, transparent 2px) 100% 0,
+          linear-gradient(to top, grey 2px, transparent 2px) 0 100%,
+          linear-gradient(to top, grey 2px, transparent 2px) 100% 100%;
+
+        background-repeat: no-repeat;
+        background-size: 10px 10px;
+      }
+      .locked {
+        cursor: default;
+      }
+      .locked:hover {
+        background: none;
+      }
+      .selected {
         background: linear-gradient(to right, black 2px, transparent 2px) 0 0,
           linear-gradient(to right, black 2px, transparent 2px) 0 100%,
           linear-gradient(to left, black 2px, transparent 2px) 100% 0,
@@ -414,7 +475,7 @@ body {
         background-repeat: no-repeat;
         background-size: 10px 10px;
       }
-      .selected {
+      .selected:hover {
         background: linear-gradient(to right, black 2px, transparent 2px) 0 0,
           linear-gradient(to right, black 2px, transparent 2px) 0 100%,
           linear-gradient(to left, black 2px, transparent 2px) 100% 0,
@@ -440,6 +501,11 @@ body {
         grid-area: bigTable1;
         transform: rotate(90deg);
       }
+      .window[data-window-id="1"] {
+        top: 21px;
+        right: 35rem;
+        /* transform: rotate(90deg) translate(0.4px); */
+      }
       .big.table[data-table-id="2"] {
         grid-area: bigTable2;
       }
@@ -447,15 +513,62 @@ body {
         grid-area: smallTable3;
         transform: rotate(90deg);
       }
-      .small.table[data-table-id="4"] {
-        grid-area: smallTable4;
+      #corner {
+        grid-area: corner;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+
+        #washroom {
+          border-bottom: 10px solid black;
+          border-left: 10px solid black;
+          grid-area: washroom;
+          width: 100%;
+          height: 60%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          svg {
+            width: 4.5rem;
+            height: auto;
+            .st0 {
+              fill: white;
+            }
+            .st1 {
+              fill: white;
+            }
+            .st2 {
+              fill: none;
+              stroke: black;
+              stroke-miterlimit: 10;
+            }
+            .st3 {
+              fill: none;
+              stroke: black;
+              stroke-width: 0.8002;
+              stroke-miterlimit: 10;
+            }
+          }
+        }
+        #door {
+          display: flex;
+          justify-content: end;
+          height: 40%;
+
+          svg {
+            position: absolute;
+            right: 1.3rem;
+            width: 150px;
+            height: 150px;
+            transform: rotate(-90deg);
+          }
+        }
       }
       .big.table[data-table-id="5"] {
         grid-area: bigTable5;
         transform: rotate(90deg);
-      }
-      .small.table[data-table-id="6"] {
-        grid-area: smallTable6;
       }
       .small.table[data-table-id="7"] {
         grid-area: smallTable7;
@@ -472,12 +585,22 @@ body {
       .big.table[data-table-id="10"] {
         grid-area: bigTable10;
       }
+      .window[data-window-id="3"] {
+        flex-direction: column-reverse;
+        left: 45%;
+        bottom: 2.5%;
+      }
       .big.table[data-table-id="11"] {
         grid-area: bigTable11;
       }
       .small.table[data-table-id="12"] {
         grid-area: smallTable12;
         transform: rotate(90deg);
+      }
+      .window[data-window-id="2"] {
+        flex-direction: column-reverse;
+        top: 720px;
+        right: 12rem;
       }
       #big-table-wrapper {
         grid-area: bigTableGroup;
@@ -486,6 +609,14 @@ body {
         justify-content: center;
         gap: 20px;
         width: 80%;
+      }
+      #small-table-wrapper {
+        grid-area: smallTableGroup;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
       }
     }
   }

@@ -243,7 +243,7 @@ async function storeReservation(event) {
       }),
     });
     console.log("response", response);
-    // showSuccessScreen(name, email, await response.json());
+    showSuccessScreen(name, email, response);
     return false;
   } catch (error) {
     console.log(error);
@@ -254,8 +254,25 @@ async function storeReservation(event) {
 
 function showSuccessScreen(name, email, response) {
   console.log("showSuccessScreen called", response);
+  document.getElementById("reservation-form").classList.add("inactive");
+  document.getElementById("reservation-success").classList.add("active");
+  document.getElementById("reservation-status").textContent = "Reservation Confirmed";
+  document.getElementById("success-message").textContent = `We look forward to seeing you ${name}!`;
 }
 
+function handleTableSelection(selectedTable) {
+  document.querySelector(".selected")?.classList.remove("selected");
+  selectedTable.classList.add("selected");
+  GLOBAL_STATE_SELECTED_TABLE = selectedTable.dataset.tableId;
+
+  //signal to the user that they can no longer select the tables
+  document.querySelectorAll(".table").forEach((table) => {
+    console.log("table", table);
+    table.classList.add("locked");
+  });
+}
+
+//default to showing today's reservations
 setDatePickerMonth();
 highlightReservedTables(todayDateFormatted);
 document
@@ -266,13 +283,15 @@ document.querySelectorAll(".table").forEach((table) => {
   table.addEventListener("mouseenter", (event) => {
     addAvailableTableTimeslots(event.target.dataset.tableId); //automatically converted to camel case from kebab case
   });
+
   table.addEventListener("click", (event) => {
-    const table = event.currentTarget;
     if (table.classList.contains("reserved") || GLOBAL_STATE_SELECTED_TABLE) return;
 
-    document.querySelector(".selected")?.classList.remove("selected");
-    table.classList.add("selected");
-
-    GLOBAL_STATE_SELECTED_TABLE = table.dataset.tableId;
+    handleTableSelection(event.currentTarget);
   });
+});
+
+//prevent page from reloading after submitting the confirm reservation form
+document.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault();
 });

@@ -70,6 +70,12 @@
         width: 2.2rem;
         height: 2.2rem;
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25), 0 0px 10px 0 rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease-in-out;
+      }
+      .arrow-button:hover {
+        background-color: black;
+        color: white;
+        border: 2px solid rgb(47, 47, 47);
       }
       .month-name {
         font-weight: 600;
