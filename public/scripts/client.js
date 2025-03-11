@@ -7,10 +7,14 @@ const ALL_RESTAURANT_OPEN_HOURS = [3, 4, 5, 6, 7, 8, 9];
 let GLOBAL_STATE_CURRENT_MONTH = new Date();
 let GLOBAL_STATE_SELECTED_TABLE = null;
 let GLOBAL_STATE_SELECTED_TIMESLOT = null;
+let resizeTimeout;
+const smallWidthMediaQuery = window.matchMedia("(max-width: 1350px)");
 
 async function getReservations() {
   try {
-    const response = await fetch("http://localhost:8000/reservations");
+    console.log("fetching reservations");
+    const response = await fetch("/reservations");
+    console.log("response", response);
     return await response.json();
   } catch (error) {
     console.log(error);
@@ -29,13 +33,16 @@ async function highlightReservedTables(date) {
       if (tableReservations[date].length == TOTAL_HOURS_RESTAURANT_OPEN_DAILY) {
         table.classList.remove("some-availability");
         table.classList.add("reserved");
+        table.classList.add("locked");
       } else if (tableReservations[date].length < TOTAL_HOURS_RESTAURANT_OPEN_DAILY) {
         table.classList.remove("reserved");
+        table.classList.remove("locked");
         table.classList.add("some-availability");
       }
     } else {
       // colour tables green or just leave as outline?
       table.classList.remove("reserved");
+      table.classList.remove("locked");
       table.classList.remove("some-availability");
       console.log("table is available", table);
     }
@@ -43,6 +50,7 @@ async function highlightReservedTables(date) {
 }
 
 async function addAvailableTableTimeslots(tableNumber) {
+  //TODO could maybe just be toggling display/classes
   if (GLOBAL_STATE_SELECTED_TABLE) return;
 
   const localReservations = await reservations;
@@ -73,6 +81,11 @@ function createTimeslot(hour, timeslotsContainer) {
   timeslot.setAttribute("data-hour-id", hour);
   timeslot.textContent = `${hour}:00 PM`;
   timeslot.onclick = (event) => {
+    if (!GLOBAL_STATE_SELECTED_TABLE) {
+      alert("Please select a table first.");
+      return;
+    }
+
     GLOBAL_STATE_SELECTED_TIMESLOT = event.target.dataset.hourId;
     openConfirmationWindow();
   };
@@ -96,6 +109,11 @@ function deleteAllTimeslots() {
   allTimeslots.forEach((timeslot) => {
     timeslot.remove();
   });
+}
+
+function updateTableNumberText(tableNumber) {
+  console.log("updateTableNumberText", tableNumber);
+  document.getElementById("table-number-heading").textContent = tableNumber;
 }
 
 function openConfirmationWindow() {
@@ -205,22 +223,34 @@ function previousMonth() {
   setDatePickerMonth();
 }
 
-function todayFocus() {
-  GLOBAL_STATE_CURRENT_MONTH = new Date(today);
-  setDatePickerMonth();
-  document
-    .querySelector(`.day-number[data-day-number="${today.getDate()}"]`)
-    .classList.add("clicked");
-  highlightReservedTables(GLOBAL_STATE_CURRENT_MONTH.toISOString().split("T")[0]);
-}
-
 function tomorrowFocus() {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
-  GLOBAL_STATE_CURRENT_MONTH = new Date(tomorrow);
+
+  updateDate(tomorrow);
+}
+
+function weekendFocus() {
+  const weekend = new Date();
+  while (weekend.getDay() != 6) {
+    weekend.setDate(weekend.getDate() + 1);
+  }
+
+  updateDate(weekend);
+}
+
+function updateDate(date) {
+  if (GLOBAL_STATE_SELECTED_TABLE) {
+    alert(
+      "You have already selected a table. Please reload the page if you wish to view another day."
+    );
+    return;
+  }
+
+  GLOBAL_STATE_CURRENT_MONTH = date;
   setDatePickerMonth();
   document
-    .querySelector(`.day-number[data-day-number="${tomorrow.getDate()}"]`)
+    .querySelector(`.day-number[data-day-number="${date.getDate()}"]`)
     .classList.add("clicked");
   highlightReservedTables(GLOBAL_STATE_CURRENT_MONTH.toISOString().split("T")[0]);
 }
@@ -231,7 +261,7 @@ async function storeReservation(event) {
   console.log("table -1", GLOBAL_STATE_SELECTED_TABLE - 1);
 
   try {
-    const response = await fetch("http://localhost:8000/reservations", {
+    const response = await fetch("/reservations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -265,27 +295,93 @@ function handleTableSelection(selectedTable) {
   selectedTable.classList.add("selected");
   GLOBAL_STATE_SELECTED_TABLE = selectedTable.dataset.tableId;
 
-  //signal to the user that they can no longer select the tables
+  //signal to the user that they can no longer select another table/date
   document.querySelectorAll(".table").forEach((table) => {
     console.log("table", table);
     table.classList.add("locked");
   });
+  document.querySelectorAll(".quick-date-pick").forEach((datePick) => {
+    datePick.classList.add("locked");
+  });
+  document.querySelectorAll(".day-number:not(.faded)").forEach((day) => {
+    day.classList.add("locked");
+  });
+  document.querySelectorAll(".day-number.faded").forEach((day) => {
+    day.classList.add("locked-faded");
+  });
+}
+
+function smallDatePickerClick(event) {
+  if (GLOBAL_STATE_SELECTED_TABLE || !event.target.value) return;
+
+  GLOBAL_STATE_CURRENT_MONTH = new Date(event.target.value);
+  highlightReservedTables(GLOBAL_STATE_CURRENT_MONTH.toISOString().split("T")[0]);
+}
+
+function alignDoor() {
+  console.log("alignDoor called");
+  const restaurantLayout = document.getElementById("restaurant-layout");
+  const door = document.getElementById("door");
+  const manualOffset = 60; // position to shift right
+
+  // Set the door's position so that its right edge aligns with #restaurant-layout's right border relative to the viewport + manualOffset.
+  door.style.left =
+    restaurantLayout.getBoundingClientRect().right + manualOffset - door.offsetWidth + "px";
+}
+
+function alignWindows() {
+  const restaurantLayout = document.getElementById("restaurant-layout");
+  const restaurantLayoutRect = restaurantLayout.getBoundingClientRect();
+  const parentLayoutRect = restaurantLayout.offsetParent.getBoundingClientRect();
+  const topWindow = document.querySelector(".window[data-window-id='1']");
+  const bottomWindows = document.querySelectorAll(
+    ".window[data-window-id='2'], .window[data-window-id='3']"
+  );
+  const topWindowOffset = -39;
+  const bottomWindowsOffset = 39;
+
+  topWindow.style.top = restaurantLayoutRect.top - parentLayoutRect.top + topWindowOffset + "px";
+
+  bottomWindows.forEach(
+    (window) =>
+      (window.style.top =
+        restaurantLayoutRect.bottom -
+        parentLayoutRect.top +
+        bottomWindowsOffset -
+        window.offsetHeight +
+        "px")
+  );
 }
 
 //default to showing today's reservations
 setDatePickerMonth();
 highlightReservedTables(todayDateFormatted);
+document.getElementById("datepicker-small").value = todayDateFormatted;
 document
   .querySelector(`.day-number[data-day-number="${today.getDate()}"]`)
   .classList.add("clicked");
 
 document.querySelectorAll(".table").forEach((table) => {
   table.addEventListener("mouseenter", (event) => {
-    addAvailableTableTimeslots(event.target.dataset.tableId); //automatically converted to camel case from kebab case
+    const tableNumber = event.target.dataset.tableId;
+    addAvailableTableTimeslots(tableNumber); //automatically converted to camel case from kebab case
+    updateTableNumberText(tableNumber);
   });
 
   table.addEventListener("click", (event) => {
-    if (table.classList.contains("reserved") || GLOBAL_STATE_SELECTED_TABLE) return;
+    if (GLOBAL_STATE_SELECTED_TABLE) {
+      alert(
+        "You have already selected a table. Please reload the page if you wish to select a different table."
+      );
+      return;
+    } else if (table.classList.contains("reserved")) {
+      alert(
+        `This table has no more timeslots remaining on ${
+          GLOBAL_STATE_CURRENT_MONTH.toISOString().split("T")[0]
+        }. Please choose another day.`
+      );
+      return;
+    }
 
     handleTableSelection(event.currentTarget);
   });
@@ -295,3 +391,13 @@ document.querySelectorAll(".table").forEach((table) => {
 document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault();
 });
+
+alignDoor();
+alignWindows();
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    alignDoor();
+  }, 250);
+});
+smallWidthMediaQuery.addEventListener("change", alignWindows);

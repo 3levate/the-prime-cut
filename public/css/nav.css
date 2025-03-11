@@ -1,20 +1,20 @@
 #nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   text-align: center;
-  background-color: black;
   align-items: center;
-  padding: 10px 60px 10px 50px;
-  box-shadow: 0 1.5px 3px 1px rgba(0, 0, 0, 0.218);
+  padding: 20px 0px 20px 0px;
+  /* box-shadow: 0 1.5px 3px 1px rgba(0, 0, 0, 0.218); */
   height: 70px;
-
-  /* position: sticky;
-  top: 0;
-  z-index: 9998; */
+  z-index: 9998;
 
   #logo {
     max-width: 70px;
+    padding-left: 50px;
   }
   #nav-list {
     font-family: "proxima-nova", sans-serif;
@@ -24,6 +24,7 @@
     display: flex;
     gap: 20px;
     flex-direction: row;
+    padding-right: 50px;
 
     /* text-transform: uppercase; */
 

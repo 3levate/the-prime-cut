@@ -10,12 +10,12 @@
 
 .datepicker {
   font-family: "Inter", sans-serif;
-  /* font-family: "Playfair Display", serif; */
   line-height: 1.5;
   background-color: var(--datepicker-bg-tertiary);
   color: var(--datepicker-text-primary);
   border-radius: 1px;
   max-width: 375px;
+  min-width: 350px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2) 0 5px 10px 0 rgba(0, 0, 0, 0.2);
   padding: 1.5rem;
   box-sizing: border-box;
@@ -52,6 +52,13 @@
         color: white;
         background-color: black;
       }
+      .locked {
+        cursor: not-allowed;
+      }
+      .locked:hover {
+        color: black;
+        background-color: var(--datepicker-bg-secondary);
+      }
     }
     .month-selector {
       display: flex;
@@ -87,7 +94,7 @@
   .datepicker-calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-row-gap: 1rem;
+    grid-row-gap: 0.7rem;
     /* padding: 10px; */
 
     .day-name {
@@ -129,6 +136,18 @@
     }
     .current-day:focus {
       background-color: var(--datepicker-primary-accent);
+    }
+    .locked {
+      cursor: not-allowed;
+    }
+    .locked:hover {
+      color: black;
+    }
+    .locked-faded {
+      cursor: not-allowed;
+    }
+    .locked-faded:hover {
+      color: var(--datepicker-text-secondary);
     }
   }
 }

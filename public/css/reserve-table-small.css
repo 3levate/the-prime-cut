@@ -1,0 +1,111 @@
+@media (max-width: 1350px) {
+  body {
+    #confirm-reservation {
+      width: 100%;
+    }
+    #reserve-a-table-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 120vh;
+
+      #reserve-a-table-bg {
+        max-width: 100%;
+        width: calc(100% - 60px);
+        justify-content: center;
+        align-items: start;
+        position: sticky;
+        top: 0;
+        z-index: 9998;
+        height: 25vh;
+        padding-left: 60px;
+
+        h2 {
+          padding: 0 0 20px 0;
+          text-align: left;
+        }
+        #reserve-a-table-side-panel {
+          width: auto;
+          gap: 50px;
+          flex-direction: row;
+          justify-content: start;
+          align-items: center;
+          height: 50px;
+
+          h3 {
+            padding: 0;
+          }
+          #datepicker-small {
+            padding: 10px;
+          }
+          #timeslots-container {
+            padding: 0;
+          }
+          .datepicker {
+            display: none;
+          }
+          #datepicker-small {
+            display: inline-block;
+          }
+        }
+      }
+
+      #restaurant-layout-container {
+        width: 100%;
+        #login-overlay {
+          width: 100%;
+          height: 85%;
+        }
+
+        #restaurant-layout {
+          height: 85%;
+          width: 85%;
+
+          #corner #door {
+            top: 38.5%;
+          }
+          .window[data-window-id="1"] {
+            right: min(60%, 600px);
+          }
+          .window[data-window-id="2"] {
+            right: min(20%, 200px);
+          }
+          .window[data-window-id="3"] {
+            left: max(20%, 200px);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  body #footer .footer-row.bottom {
+    padding: 0 7% 0 7%;
+  }
+}
+
+@media (max-width: 780px) {
+  body {
+    #unsupported-screen-size {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "proxima-nova", sans-serif;
+      font-weight: 300;
+      font-size: 1.3rem;
+      background-color: black;
+      color: white;
+      margin: 0;
+      padding: 50px;
+    }
+    #reserve-a-table-container {
+      display: none;
+    }
+
+    #footer .footer-row.bottom {
+      padding: 0 10px 0 10px;
+    }
+  }
+}
